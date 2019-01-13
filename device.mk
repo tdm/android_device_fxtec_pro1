@@ -434,6 +434,10 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-service \
     thermal.msm8998
 
+# Trust
+PRODUCT_PACKAGES += \
+    vendor.lineage.trust@1.0-service
+
 # Update engine
 PRODUCT_PACKAGES += \
     brillo_update_payload \
