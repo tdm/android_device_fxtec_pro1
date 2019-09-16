@@ -446,7 +446,7 @@ low_ram=`getprop ro.config.low_ram`
 
 if [ "$ProductName" == "msmnile" ]; then
       # Enable ZRAM
-      configure_zram_parameters
+      #configure_zram_parameters
       configure_read_ahead_kb_values
       echo 0 > /proc/sys/vm/page-cluster
       echo 100 > /proc/sys/vm/swappiness
@@ -549,7 +549,7 @@ else
     # wsf Range : 1..1000 So set to bare minimum value 1.
     echo 1 > /proc/sys/vm/watermark_scale_factor
 
-    configure_zram_parameters
+    #configure_zram_parameters
 
     configure_read_ahead_kb_values
 
