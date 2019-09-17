@@ -57,6 +57,8 @@ TARGET_2ND_CPU_VARIANT := cortex-a73
 
 TARGET_USES_UEFI := true
 
+BUILD_BROKEN_DUP_RULES := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE := \
 	console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc1b0000 \
