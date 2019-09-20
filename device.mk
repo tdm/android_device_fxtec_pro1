@@ -479,6 +479,10 @@ PRODUCT_PACKAGES += \
 # Shipping API level (for CTS backward compatibility)
 include $(SRC_TARGET_DIR)/product/product_launched_with_p.mk
 
+# Soong
+PRODUCT_SOONG_NAMESPACES += \
+    device/fxtec/pro1
+
 # Tetheroffload
 PRODUCT_PACKAGES += \
     ipacm \
