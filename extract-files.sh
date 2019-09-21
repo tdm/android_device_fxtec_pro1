@@ -78,4 +78,8 @@ if [ -f "$RECOVERY_QSEECOMD" ]; then
     mv "$RECOVERY_QSEECOMD.tmp" "$RECOVERY_QSEECOMD"
 fi
 
+# Load camera shim
+CAMERA_SHIM="$COMMON_BLOB_ROOT"/vendor/lib/libmms_hal_vstab.so
+patchelf --add-needed libshim_camera.so "$CAMERA_SHIM"
+
 "$MY_DIR"/setup-makefiles.sh
