@@ -23,6 +23,7 @@
 #
 
 $(call inherit-product, vendor/idealte/pro1/pro1-vendor.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -422,7 +423,8 @@ PRODUCT_PACKAGES += \
 
 # Privapp Whitelist
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml
+    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml \
+    $(LOCAL_PATH)/configs/product-privapp-permissions-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/product-privapp-permissions-qti.xml
 
 # Power
 # XXX: all blobs for now
@@ -462,9 +464,16 @@ PRODUCT_PACKAGES += \
     libxml2 \
     libprotobuf-cpp-full
 
+# IMS
 PRODUCT_PACKAGES += \
+    ims-ext-common \
     ims-ext-common_system \
-    telephony-ext
+    telephony-ext \
+    ims_ext_common.xml \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml
 
 PRODUCT_BOOT_JARS += \
     ims-ext-common_system \
@@ -480,9 +489,6 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
     libsensorndkbridge
-
-# Shipping API level (for CTS backward compatibility)
-include $(SRC_TARGET_DIR)/product/product_launched_with_p.mk
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \

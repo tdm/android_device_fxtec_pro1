@@ -64,6 +64,24 @@ extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
 BLOB_ROOT="$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE"/proprietary
 
 #
+# Fix product path
+#
+function fix_product_path () {
+    sed -i \
+        's/\/system\/framework\//\/system\/product\/framework\//g' \
+        "$COMMON_BLOB_ROOT"/"$1"
+}
+
+fix_product_path product/etc/permissions/com.qualcomm.qti.imscmservice.xml
+fix_product_path product/etc/permissions/com.qualcomm.qti.imscmservice-V2.0-java.xml
+fix_product_path product/etc/permissions/com.qualcomm.qti.imscmservice-V2.1-java.xml
+fix_product_path product/etc/permissions/telephonyservice.xml
+fix_product_path product/etc/permissions/embms.xml
+fix_product_path product/etc/permissions/qcnvitems.xml
+fix_product_path product/etc/permissions/qcrilhook.xml
+fix_product_path product/etc/permissions/telephonyservice.xml
+
+#
 # Correct android.hidl.manager@1.0-java jar name
 #
 sed -i "s|name=\"android.hidl.manager-V1.0-java|name=\"android.hidl.manager@1.0-java|g" \
