@@ -119,12 +119,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.bluetooth.bluetooth_audio_hal.disabled=true \
-    persist.bt.a2dp_offload_cap=false \
+    persist.bluetooth.a2dp_offload.cap=false \
     vendor.bluetooth.soc=cherokee \
     vendor.qcom.bluetooth.soc=cherokee \
-    ro.bluetooth.a4wp=false \
-    ro.bluetooth.emb_wp_mode=false \
-    ro.bluetooth.wipower=false
+    persist.vendor.bluetooth.a4wp=false \
+    vendor.bluetooth.emb_wp_mode=false \
+    vendor.bluetooth.wipower=false
 
 # Cabl
 PRODUCT_PROPERTY_OVERRIDES += \
