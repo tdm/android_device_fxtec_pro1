@@ -19,6 +19,19 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- The number of degrees to rotate the display when the keyboard is open.
+         A value of -1 means no change in orientation by default. -->
+    <integer name="config_lidOpenRotation">90</integer>
+    <!-- Indicate whether the lid state impacts the accessibility of
+         the physical keyboard.  0 means it doesn't, 1 means it is accessible
+         when the lid is open, 2 means it is accessible when the lid is
+         closed.  The default is 0. -->
+    <integer name="config_lidKeyboardAccessibility">1</integer>
+    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
+         it causes the device to wake up.
+         The default is false. -->
+    <bool name="config_lidControlsSleep">false</bool>
+
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
@@ -442,11 +455,6 @@
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
-
-    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
-         it causes the device to wake up.
-         The default is false. -->
-    <bool name="config_lidControlsSleep">true</bool>
 
     <!-- Indicate whether to allow the device to suspend when the screen is off
          due to the proximity sensor.  This resource should only be set to true
