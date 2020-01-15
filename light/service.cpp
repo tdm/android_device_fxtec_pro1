@@ -32,6 +32,8 @@ using android::hardware::light::V2_0::implementation::Light;
 
 const static std::string kLcdBacklightPath = "/sys/class/leds/lcd-backlight/brightness";
 const static std::string kLcdMaxBacklightPath = "/sys/class/leds/lcd-backlight/max_brightness";
+const static std::string kKeyboardBacklightPath = "/sys/class/leds/keyboard-backlight/brightness";
+const static std::string kKeyboardMaxBacklightPath = "/sys/class/leds/keyboard-backlight/max_brightness";
 const static std::string kButton1BacklightPath = "/sys/class/leds/button-backlight/brightness";
 const static std::string kButton2BacklightPath = "/sys/class/leds/button-backlight1/brightness";
 const static std::string kButton3BacklightPath = "/sys/class/leds/button-backlight2/brightness";
@@ -59,6 +61,7 @@ const static std::string kBlueBlinkPath = "/sys/class/leds/blue/blink";
 
 int main() {
     uint32_t lcdMaxBrightness = 255;
+    uint32_t keyboardMaxBrightness = 255;
     std::vector<std::ofstream> buttonBacklight;
 
     std::ofstream lcdBacklight(kLcdBacklightPath);
@@ -75,6 +78,22 @@ int main() {
         return -errno;
     } else {
         lcdMaxBacklight >> lcdMaxBrightness;
+    }
+
+    std::ofstream keyboardBacklight(kKeyboardBacklightPath);
+    if (!keyboardBacklight) {
+        LOG(ERROR) << "Failed to open " << kKeyboardBacklightPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
+        return -errno;
+    }
+
+    std::ifstream keyboardMaxBacklight(kKeyboardMaxBacklightPath);
+    if (!keyboardMaxBacklight) {
+        LOG(ERROR) << "Failed to open " << kKeyboardMaxBacklightPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
+        return -errno;
+    } else {
+        keyboardMaxBacklight >> keyboardMaxBrightness;
     }
 
     std::ofstream button1Backlight(kButton1BacklightPath);
@@ -249,7 +268,9 @@ int main() {
     }
 
     android::sp<ILight> service = new Light(
-            {std::move(lcdBacklight), lcdMaxBrightness}, std::move(buttonBacklight),
+            {std::move(lcdBacklight), lcdMaxBrightness},
+            {std::move(keyboardBacklight), keyboardMaxBrightness},
+            std::move(buttonBacklight),
             std::move(redLed), std::move(greenLed), std::move(blueLed),
             std::move(redDutyPcts), std::move(greenDutyPcts), std::move(blueDutyPcts),
             std::move(redStartIdx), std::move(greenStartIdx), std::move(blueStartIdx),
