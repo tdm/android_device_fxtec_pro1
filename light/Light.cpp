@@ -59,6 +59,7 @@ namespace V2_0 {
 namespace implementation {
 
 Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
+             std::pair<std::ofstream, uint32_t>&& keyboard_backlight,
              std::vector<std::ofstream>&& button_backlight,
              std::ofstream&& red_led, std::ofstream&& green_led, std::ofstream&& blue_led,
              std::ofstream&& red_duty_pcts, std::ofstream&& green_duty_pcts, std::ofstream&& blue_duty_pcts,
@@ -68,6 +69,7 @@ Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
              std::ofstream&& red_ramp_step_ms, std::ofstream&& green_ramp_step_ms, std::ofstream&& blue_ramp_step_ms,
              std::ofstream&& red_blink, std::ofstream&& green_blink, std::ofstream&& blue_blink)
     : mLcdBacklight(std::move(lcd_backlight)),
+      mKeyboardBacklight(std::move(keyboard_backlight)),
       mButtonBacklight(std::move(button_backlight)),
       mRedLed(std::move(red_led)),
       mGreenLed(std::move(green_led)),
@@ -147,6 +149,22 @@ void Light::setLcdBacklight(const LightState& state) {
     }
 
     mLcdBacklight.first << brightness << std::endl;
+}
+
+void Light::setKeyboardBacklight(const LightState& state) {
+    std::lock_guard<std::mutex> lock(mLock);
+
+    uint32_t brightness = rgbToBrightness(state);
+
+    // If max keyboard brightness is not the default (255),
+    // apply linear scaling across the accepted range.
+    if (mKeyboardBacklight.second != DEFAULT_MAX_BRIGHTNESS) {
+        int old_brightness = brightness;
+        brightness = brightness * mKeyboardBacklight.second / DEFAULT_MAX_BRIGHTNESS;
+        LOG(VERBOSE) << "scaling brightness " << old_brightness << " => " << brightness;
+    }
+
+    mKeyboardBacklight.first << brightness << std::endl;
 }
 
 void Light::setButtonsBacklight(const LightState& state) {
