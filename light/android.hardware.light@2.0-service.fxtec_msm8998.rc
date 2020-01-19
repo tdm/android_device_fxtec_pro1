@@ -60,4 +60,4 @@ on init
 service light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.fxtec_msm8998
     class hal
     user system
-    group system
+    group system input
