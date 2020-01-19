@@ -149,6 +149,8 @@ void Light::setLcdBacklight(const LightState& state) {
     }
 
     mLcdBacklight.first << brightness << std::endl;
+    // Keyboard backlight follows display
+    mKeyboardBacklight.first << brightness << std::endl;
 }
 
 void Light::setKeyboardBacklight(const LightState& state) {
