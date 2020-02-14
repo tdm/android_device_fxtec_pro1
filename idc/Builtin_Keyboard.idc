@@ -16,8 +16,8 @@
 # F(x)tec Pro1 input device configuration file for the built-in keyboard
 #
 
-# The keyboard is internal because it is part of the device.
-device.internal = 1
+# Pretend the keyboard is external so we can wake the device using key events
+device.internal = 0
 
 # The keyboard is the default built-in keyboard so it should be assigned
 # an id of 0.
