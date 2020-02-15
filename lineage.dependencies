@@ -1,0 +1,10 @@
+[
+  {
+    "repository": "android_packages_resources_devicesettings",
+    "target_path": "packages/resources/devicesettings"
+  },
+  {
+    "repository": "android_kernel_idealte_msm8998",
+    "target_path": "kernel/idealte/msm8998"
+  }
+]

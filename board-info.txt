@@ -1,0 +1,2 @@
+require version-modem=2019-01-16 13:47:50
+require version-firmware=ADSP.HT.3.0-00384-CB8998-1

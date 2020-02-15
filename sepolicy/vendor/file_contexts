@@ -1,0 +1,85 @@
+# Alipay
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.ifaa@2\.0-service    u:object_r:hal_ifaa_default_exec:s0
+
+# Block devices
+# We have a couple of non-standard NV partitions
+/dev/block/platform/soc/1da4000.ufshc/by-name/oem_dycnvbk       u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc/1da4000.ufshc/by-name/oem_stanvbk       u:object_r:modem_efs_partition_device:s0
+# FRP partition
+/dev/block/platform/soc/1da4000.ufshc/by-name/config            u:object_r:frp_block_device:s0
+
+# Bluetooth
+/sys/devices/bt_wcn3990/rfkill/rfkill0/state                    u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/bt_wcn3990/extldo                                  u:object_r:sysfs_bluetooth_writable:s0
+/(vendor|system/vendor)/bin/bt-mac-generator                    u:object_r:bt_mac_generator_exec:s0
+
+# Dash
+/dev/dash                                                       u:object_r:dash_device:s0
+/vendor/xbin/dashd                                              u:object_r:dashd_exec:s0
+
+# DRM
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.drmkey@1\.0-service    u:object_r:hal_drm_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.hdcpkey@1\.0-service   u:object_r:hal_hdcpkey_default_exec:s0
+
+# Fingerprint
+/dev/fpc1020                                                    u:object_r:fingerprint_device:s0
+/dev/goodix_fp                                                  u:object_r:fingerprint_device:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service-custom u:object_r:hal_fingerprint_default_exec:s0
+
+# Lights
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service.fxtec_msm8998    u:object_r:hal_light_default_exec:s0
+
+# LiveDisplay
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service.fxtec_msm8998    u:object_r:hal_livedisplay_fxtec_msm8998_exec:s0
+/sys/devices/virtual/graphics/fb0/adaption_mode                 u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/adobe_rgb                     u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/dci_p3                        u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/hbm                           u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/night_mode                    u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/fxtec_mode                  u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/panel_serial_number           u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/srgb                          u:object_r:sysfs_livedisplay_tuneable:s0
+
+# Keylayout
+/vendor/usr/keylayout/fpc1020.kl                                u:object_r:vendor_keylayout_file:s0
+/vendor/usr/keylayout/synaptics.kl                              u:object_r:vendor_keylayout_file:s0
+/vendor/usr/keylayout/synaptics_s3320.kl                        u:object_r:vendor_keylayout_file:s0
+
+# Param
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.param@1\.0-service    u:object_r:hal_param_default_exec:s0
+
+# Power supply
+/sys/devices/soc/.*ssusb/power_supply/usb(/.*)?                 u:object_r:sysfs_usb_supply:s0
+/sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/main(/.*)?       u:object_r:sysfs_usb_supply:s0
+/sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/usb(/.*)?        u:object_r:sysfs_usb_supply:s0
+/sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/battery(/.*)?    u:object_r:sysfs_battery_supply:s0
+/sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/dc(/.*)?         u:object_r:sysfs_battery_supply:s0
+/sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:qpnp,fg/power_supply/bms(/.*)?               u:object_r:sysfs_battery_supply:s0
+
+# Ril
+/data/vendor/oemnvitems(/.*)?                                   u:object_r:vendor_radio_data_file:s0
+
+# Sysfs
+/sys/class/leds(/.*)?                                           u:object_r:sysfs_leds:s0
+/sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:gpio-leds/leds(/.*)?     u:object_r:sysfs_leds:s0
+
+/sys/devices/soc/soc:fingerprint_detect/sensor_version          u:object_r:sysfs_fpc:s0
+/sys/devices/soc/soc:fpc_fpc1020/irq                            u:object_r:sysfs_fpc_irq:s0
+/sys/devices/soc/soc:fpc_fpc1020/report_home                    u:object_r:sysfs_fpc_key:s0
+/sys/devices/soc/soc:fpc_fpc1020/report_key                     u:object_r:sysfs_fpc_key:s0
+/sys/devices/soc/soc:fpc_fpc1020/screen_state                   u:object_r:sysfs_fpc_screen:s0
+/sys/devices/soc/soc:fpc_fpc1020/proximity_state                u:object_r:sysfs_fpc_proximity:s0
+/sys/devices/soc/soc:goodix_fp/proximity_state                  u:object_r:sysfs_fpc_proximity:s0
+
+/sys/devices/soc/8c0000.qcom,msm-cam/video4linux(/.*)?          u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/graphics/fb0(/.*)?                         u:object_r:sysfs_graphics:s0
+/sys/kernel/boot_wlan(/.*)?                                     u:object_r:sysfs_wifi:s0
+/sys/module/fpc1020_tee/parameters/ignor_home_for_ESD           u:object_r:sysfs_fpc_key:s0
+
+/sys/project_info(/.*)?                                         u:object_r:sysfs_data:s0
+
+# Touch
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.fxtec_msm8998 u:object_r:hal_touch_fxtec_msm8998_exec:s0
+
+# Wifi
+/(vendor|system/vendor)/bin/wifi-mac-generator                  u:object_r:wifi_mac_generator_exec:s0
