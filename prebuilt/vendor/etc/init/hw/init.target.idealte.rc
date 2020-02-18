@@ -17,3 +17,8 @@ service macplugin /vendor/bin/macplugin
     group root
     oneshot
 
+service setup-keyboard /vendor/bin/init.keyboard.sh
+    class main
+    user root
+    group root
+    oneshot
