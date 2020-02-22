@@ -119,7 +119,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.disable_skip_validate=1 \
     vendor.display.enable_default_color_mode=1 \
     vendor.display.perf_hint_window=50 \
-    debug.hwui.use_buffer_age=false
+    debug.hwui.use_buffer_age=false \
+    ro.com.google.ime.kb_pad_port_l=10 \
+    ro.com.google.ime.kb_pad_port_r=10 \
+    ro.com.google.ime.key_border=true \
+    ro.com.google.ime.bs_theme=true
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
