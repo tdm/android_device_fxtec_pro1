@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2018-2020 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,12 +46,14 @@ struct Light : public ILight {
     Return<Status> setLight(Type type, const LightState& state) override;
     Return<void> getSupportedTypes(getSupportedTypes_cb _hidl_cb) override;
 
+    void onSliderChanged(bool open);
+
   private:
     void setAttentionLight(const LightState& state);
     void setBatteryLight(const LightState& state);
     void setButtonsBacklight(const LightState& state);
     void setLcdBacklight(const LightState& state);
-    void setKeyboardBacklight(const LightState& state);
+    void setKeyboardBacklightLocked();
     void setNotificationLight(const LightState& state);
     void setSpeakerBatteryLightLocked();
     void setSpeakerLightLocked(const LightState& state);
@@ -87,6 +89,9 @@ struct Light : public ILight {
 
     std::unordered_map<Type, std::function<void(const LightState&)>> mLights;
     std::mutex mLock;
+
+    bool mLcdBacklightOn;
+    bool mSliderOpen;
 };
 
 }  // namespace implementation

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2018-2020 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 #include <linux/input.h>
 
 namespace {
+
 using android::hardware::light::V2_0::LightState;
 
 static constexpr int RAMP_SIZE = 8;
@@ -54,6 +55,41 @@ static std::string getScaledDutyPcts(int brightness) {
 
     return buf;
 }
+
+static int openInputDeviceByName(const char* name) {
+    int fd;
+    unsigned int n;
+    char pathname[PATH_MAX];
+    char devname[256];
+
+    fd = -1;
+    n = 0;
+    while (fd < 0) {
+        sprintf(pathname, "/dev/input/event%u", n++);
+        fd = TEMP_FAILURE_RETRY(open(pathname, O_RDONLY | O_CLOEXEC));
+        if (fd < 0) {
+            // Fail: out of devices to try
+            break;
+        }
+        memset(devname, 0, sizeof(devname));
+        if (ioctl(fd, EVIOCGNAME(sizeof(devname) - 1), &devname) > 0) {
+            if (!strcmp(devname, name)) {
+                // Success
+                break;
+            }
+        }
+        close(fd);
+        fd = -1;
+    }
+
+    return fd;
+}
+
+static bool readEvent(int fd, input_event& ev) {
+    ssize_t len = TEMP_FAILURE_RETRY(read(fd, &ev, sizeof(ev)));
+    return (len == sizeof(ev));
+}
+
 }  // anonymous namespace
 
 namespace android {
@@ -61,6 +97,39 @@ namespace hardware {
 namespace light {
 namespace V2_0 {
 namespace implementation {
+
+static void* sliderMonitorThread(void* arg) {
+    Light* owner = (Light*)arg;
+    int fd;
+
+restart:
+    fd = openInputDeviceByName("gpio-keys");
+    if (fd < 0) {
+        LOG(ERROR) << "Cannot open slider input device";
+        sleep(1);
+        goto restart;
+    }
+
+    LOG(INFO) << "sliderMonitorThread enter loop";
+    while (1) {
+        struct input_event ev;
+        if (!readEvent(fd, ev)) {
+            LOG(ERROR) << "Failed to read slider event";
+            close(fd);
+            sleep(1);
+            goto restart;
+        }
+        // Ignore unwanted event types and codes (eg. EV_SYN)
+        if (ev.type != EV_SW || ev.code != SW_LID) {
+            continue;
+        }
+        bool open = (ev.value == 0);
+        owner->onSliderChanged(open);
+    }
+    close(fd);
+
+    return nullptr;
+}
 
 Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
              std::pair<std::ofstream, uint32_t>&& keyboard_backlight,
@@ -95,7 +164,9 @@ Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
       mBlueRampStepMs(std::move(blue_ramp_step_ms)),
       mRedBlink(std::move(red_blink)),
       mGreenBlink(std::move(green_blink)),
-      mBlueBlink(std::move(blue_blink)) {
+      mBlueBlink(std::move(blue_blink)),
+      mLcdBacklightOn(false),
+      mSliderOpen(false) {
     auto attnFn(std::bind(&Light::setAttentionLight, this, std::placeholders::_1));
     auto backlightFn(std::bind(&Light::setLcdBacklight, this, std::placeholders::_1));
     auto batteryFn(std::bind(&Light::setBatteryLight, this, std::placeholders::_1));
@@ -106,6 +177,9 @@ Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
     mLights.emplace(std::make_pair(Type::BATTERY, batteryFn));
     mLights.emplace(std::make_pair(Type::BUTTONS, buttonsFn));
     mLights.emplace(std::make_pair(Type::NOTIFICATIONS, notifFn));
+
+    pthread_t th;
+    (void)pthread_create(&th, nullptr, sliderMonitorThread, this);
 }
 
 // Methods from ::android::hardware::light::V2_0::ILight follow.
@@ -133,6 +207,12 @@ Return<void> Light::getSupportedTypes(getSupportedTypes_cb _hidl_cb) {
     return Void();
 }
 
+void Light::onSliderChanged(bool open) {
+    std::lock_guard<std::mutex> lock(mLock);
+    mSliderOpen = open;
+    setKeyboardBacklightLocked();
+}
+
 void Light::setAttentionLight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
     mAttentionState = state;
@@ -141,6 +221,8 @@ void Light::setAttentionLight(const LightState& state) {
 
 void Light::setLcdBacklight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
+
+    mLcdBacklightOn = (state.color != 0);
 
     uint32_t brightness = rgbToBrightness(state);
 
@@ -154,46 +236,17 @@ void Light::setLcdBacklight(const LightState& state) {
 
     mLcdBacklight.first << brightness << std::endl;
 
-    // Get keyboard slider state
-    int got_state = 0;
-    uint16_t swState = 0;
-    int fd = TEMP_FAILURE_RETRY(open("/dev/input/event2", O_RDONLY | O_NONBLOCK | O_CLOEXEC));
-    if (fd < 0) {
-        LOG(ERROR) << "could not open evdev device /dev/input/event2. err=" << errno;
-    } else {
-        if (TEMP_FAILURE_RETRY(ioctl(fd, EVIOCGSW(1), &swState)) >= 0) {
-            got_state = 1;
-        } else {
-            LOG(ERROR) << "could not read switch state from /dev/input/event2. err=" << errno;
-        }
-        close(fd);
-    }
-
-    if (got_state) {
-        if (!(swState & (1 << SW_LID))) {
-            // Keyboard backlight follows display when the slider is open
-            mKeyboardBacklight.first << brightness << std::endl;
-        }
-    } else {
-        // Keyboard backlight follows display if we can't determine the slider state
-        mKeyboardBacklight.first << brightness << std::endl;
-    }
+    setKeyboardBacklightLocked();
 }
 
-void Light::setKeyboardBacklight(const LightState& state) {
-    std::lock_guard<std::mutex> lock(mLock);
-
-    uint32_t brightness = rgbToBrightness(state);
-
-    // If max keyboard brightness is not the default (255),
-    // apply linear scaling across the accepted range.
-    if (mKeyboardBacklight.second != DEFAULT_MAX_BRIGHTNESS) {
-        int old_brightness = brightness;
-        brightness = brightness * mKeyboardBacklight.second / DEFAULT_MAX_BRIGHTNESS;
-        LOG(VERBOSE) << "scaling brightness " << old_brightness << " => " << brightness;
-    }
-
-    mKeyboardBacklight.first << brightness << std::endl;
+void Light::setKeyboardBacklightLocked() {
+    mKeyboardBacklight.second = (mSliderOpen && mLcdBacklightOn)
+                                ? DEFAULT_MAX_BRIGHTNESS
+                                : 0;
+    LOG(INFO) << "setKeyboardBacklightLocked:" <<
+                 " mSliderOpen=" << (mSliderOpen ? "true" : "false") <<
+                 " mLcdBacklightOn=" << (mLcdBacklightOn ? "true" : "false");
+    mKeyboardBacklight.first << mKeyboardBacklight.second << std::endl;
 }
 
 void Light::setButtonsBacklight(const LightState& state) {
