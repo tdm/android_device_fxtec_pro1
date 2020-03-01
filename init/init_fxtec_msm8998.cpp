@@ -47,73 +47,9 @@
 #include "vendor_init.h"
 #include "property_service.h"
 
-#define DEVINFO_FILE "/sys/project_info/project_name"
-#define SENSOR_VERSION_FILE "/sys/devices/soc/soc:fingerprint_detect/sensor_version"
-
 using android::base::Trim;
-using android::base::GetProperty;
 using android::base::ReadFileToString;
 using android::init::property_set;
-
-void property_override(const std::string& name, const std::string& value)
-{
-    size_t valuelen = value.size();
-
-    prop_info* pi = (prop_info*) __system_property_find(name.c_str());
-    if (pi != nullptr) {
-        __system_property_update(pi, value.c_str(), valuelen);
-    }
-    else {
-        int rc = __system_property_add(name.c_str(), name.size(), value.c_str(), valuelen);
-        if (rc < 0) {
-            LOG(ERROR) << "property_set(\"" << name << "\", \"" << value << "\") failed: "
-                       << "__system_property_add failed";
-        }
-    }
-}
-
-void init_target_properties()
-{
-    std::string device;
-    bool unknownDevice = true;
-
-    if (ReadFileToString(DEVINFO_FILE, &device)) {
-        LOG(INFO) << "Device info: " << device;
-
-        property_set("ro.display.series", "FxTec Pro1");
-        unknownDevice = false;
-
-        property_set("vendor.boot.project_name", device.c_str());
-    }
-    else {
-        LOG(ERROR) << "Unable to read device info from " << DEVINFO_FILE;
-    }
-
-    if (unknownDevice) {
-        property_set("ro.display.series", "UNKNOWN");
-    }
-}
-
-void init_fingerprint_properties()
-{
-    std::string sensor_version;
-
-    if (ReadFileToString(SENSOR_VERSION_FILE, &sensor_version)) {
-        LOG(INFO) << "Loading Fingerprint HAL for sensor version " << sensor_version;
-        if (Trim(sensor_version) == "1" || Trim(sensor_version) == "2") {
-            property_set("ro.hardware.fingerprint", "fpc");
-        }
-        else if (Trim(sensor_version) == "3") {
-            property_set("ro.hardware.fingerprint", "goodix");
-        }
-        else {
-            LOG(ERROR) << "Unsupported fingerprint sensor: " << sensor_version;
-        }
-    }
-    else {
-        LOG(ERROR) << "Failed to detect sensor version";
-    }
-}
 
 void init_alarm_boot_properties()
 {
@@ -181,7 +117,5 @@ void init_alarm_boot_properties()
 
 void vendor_load_properties() {
     LOG(INFO) << "Loading vendor specific properties";
-    init_target_properties();
-    init_fingerprint_properties();
     init_alarm_boot_properties();
 }
