@@ -2,7 +2,6 @@ vendor.fxtec.fingerprint.extension::IVendorFingerprintExtensions u:object_r:hal_
 
 vendor.fxtec.hardware.drmkey::IFxTecDrmKey                u:object_r:hal_drmkey_hwservice:s0
 vendor.fxtec.hardware.hdcpkey::IFxTecHdcpKey              u:object_r:hal_hdcpkey_hwservice:s0
-vendor.fxtec.hardware.ifaa::IFxTecIfaa                    u:object_r:hal_ifaa_hwservice:s0
 vendor.fxtec.hardware.param::IFxTecParam                  u:object_r:hal_param_hwservice:s0
 
 vendor.nxp.nxpese::INxpEse                                u:object_r:hal_secure_element_hwservice:s0
