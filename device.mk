@@ -477,10 +477,6 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-service \
     thermal.msm8998
 
-# Touch
-PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.fxtec_msm8998
-
 # Update engine
 PRODUCT_PACKAGES += \
     brillo_update_payload \
