@@ -69,6 +69,3 @@
 /sys/module/fpc1020_tee/parameters/ignor_home_for_ESD           u:object_r:sysfs_fpc_key:s0
 
 /sys/project_info(/.*)?                                         u:object_r:sysfs_data:s0
-
-# Touch
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.fxtec_msm8998 u:object_r:hal_touch_fxtec_msm8998_exec:s0
