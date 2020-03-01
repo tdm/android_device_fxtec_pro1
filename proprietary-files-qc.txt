@@ -1190,10 +1190,6 @@ vendor/lib64/libhdcpsrm.so
 vendor/lib64/libmmosal_proprietary.so
 vendor/lib64/libwfdhdcpcp.so
 
-# VR
-vendor/lib/hw/vr.msm8998.so
-vendor/lib64/hw/vr.msm8998.so
-
 # Misc
 vendor/etc/graphite_ipc_platform_info.xml
 vendor/lib64/libgcs.so
