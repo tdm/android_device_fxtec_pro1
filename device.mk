@@ -175,6 +175,7 @@ PRODUCT_PACKAGES += \
 
 # Common init scripts
 PRODUCT_PACKAGES += \
+    fstab.qcom \
     init.qcom.rc
 
 # Device settings
@@ -209,10 +210,6 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.1-service.clearkey
-
-# Filesystem
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/vendor/etc/fstab.qcom:system/etc/fstab.qcom
 
 # Fingerprint sensor
 PRODUCT_PACKAGES += \
