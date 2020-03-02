@@ -25,9 +25,3 @@ on boot
     chmod 0660 /sys/goodix/margin_x
     chown system system /sys/goodix/margin_y
     chmod 0660 /sys/goodix/margin_y
-
-service macplugin /vendor/bin/macplugin
-    class main
-    user root
-    group root
-    oneshot
