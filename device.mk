@@ -183,24 +183,17 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.configstore@1.0-service \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     copybit.msm8998 \
     gralloc.msm8998 \
     hwcomposer.msm8998 \
-    memtrack.msm8998 \
     libdisplayconfig \
-    libhwc2on1adapter \
-    libgenlock \
     liboverlay \
-    libtinyxml \
-    libqdMetaData \
     libqdMetaData.system \
-    libvulkan
-
-PRODUCT_PACKAGES += \
-    vendor.display.config@1.0
+    libtinyxml \
+    libvulkan \
+    memtrack.msm8998 \
 
 # Doze
 PRODUCT_PACKAGES += \
