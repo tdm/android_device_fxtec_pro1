@@ -172,12 +172,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.qcom.rc
 
-# Connectivity Engine support (CNE)
-PRODUCT_PACKAGES += \
-    cneapiclient \
-    com.quicinc.cne \
-    services-ext
-
 # Device settings
 PRODUCT_PACKAGES += \
     DeviceSettings
