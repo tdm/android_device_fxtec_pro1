@@ -454,8 +454,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     bootctrl.msm8998 \
     libcutils \
-    libgptutils \
-    libz
+    libgptutils
 
 # USB
 PRODUCT_PACKAGES += \
