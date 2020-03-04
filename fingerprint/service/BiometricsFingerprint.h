@@ -25,6 +25,8 @@
 #include <hidl/Status.h>
 #include <android/hardware/biometrics/fingerprint/2.1/IBiometricsFingerprint.h>
 
+#include <chrono>
+
 namespace android {
 namespace hardware {
 namespace biometrics {
@@ -62,6 +64,9 @@ public:
     Return<RequestStatus> authenticate(uint64_t operationId, uint32_t gid) override;
 
 private:
+    void onAuthSuccess();
+    bool onAuthFail();
+
     static fingerprint_device_t* openHal();
     static void notify(const fingerprint_msg_t *msg); /* Static callback for legacy HAL implementation */
     static Return<RequestStatus> ErrorFilter(int32_t error);
@@ -72,6 +77,9 @@ private:
     std::mutex mClientCallbackMutex;
     sp<IBiometricsFingerprintClientCallback> mClientCallback;
     fingerprint_device_t *mDevice;
+
+    uint32_t mAuthFailCount;
+    std::chrono::steady_clock::time_point mNextAuthTime;
 };
 
 }  // namespace implementation
