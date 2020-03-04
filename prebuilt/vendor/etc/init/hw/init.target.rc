@@ -121,9 +121,6 @@ on boot
    chown system system /sys/class/leds/led:torch_1/brightness
    chown system system /sys/class/leds/led:switch_0/brightness
 
-#Load WLAN driver
-   insmod /vendor/lib/modules/wlan.ko
-
 #USB controller configuration
     setprop vendor.usb.rndis.func.name "gsi"
     setprop vendor.usb.rmnet.func.name "gsi"
