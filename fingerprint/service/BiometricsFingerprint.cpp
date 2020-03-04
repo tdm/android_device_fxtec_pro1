@@ -22,6 +22,8 @@
 #include <hardware/fingerprint.h>
 #include "BiometricsFingerprint.h"
 
+#include <cutils/properties.h>
+
 #include <inttypes.h>
 #include <unistd.h>
 
@@ -32,6 +34,9 @@ namespace fingerprint {
 namespace V2_1 {
 namespace implementation {
 
+static const int32_t kDefaultAuthDelay = 2;
+static const int8_t  kDefaultAuthBackoff = 0;
+
 // Supported fingerprint HAL version
 static const uint16_t kVersion = HARDWARE_MODULE_API_VERSION(2, 1);
 
@@ -40,7 +45,10 @@ using RequestStatus =
 
 BiometricsFingerprint *BiometricsFingerprint::sInstance = nullptr;
 
-BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevice(nullptr) {
+BiometricsFingerprint::BiometricsFingerprint() :
+        mClientCallback(nullptr), mDevice(nullptr),
+        mAuthFailCount(0),
+        mNextAuthTime(std::chrono::steady_clock::now()) {
     sInstance = this; // keep track of the most recent instance
     mDevice = openHal();
     if (!mDevice) {
@@ -204,6 +212,27 @@ Return<RequestStatus> BiometricsFingerprint::authenticate(uint64_t operationId,
     return ErrorFilter(mDevice->authenticate(mDevice, operationId, gid));
 }
 
+void BiometricsFingerprint::onAuthSuccess() {
+    mAuthFailCount = 0;
+}
+
+bool BiometricsFingerprint::onAuthFail() {
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+    bool suppressAuthAttempt = (mAuthFailCount > 0 && now < mNextAuthTime);
+
+    if (!suppressAuthAttempt) {
+        mAuthFailCount += 1;
+    }
+    int32_t authDelay = property_get_int32("persist.vendor.fingerprint.auth_delay", kDefaultAuthDelay);
+    int8_t authBackoff = property_get_bool("persist.vendor.fingerprint.auth_backoff", kDefaultAuthBackoff);
+    if (authBackoff) {
+        authDelay *= mAuthFailCount;
+    }
+    mNextAuthTime = now + std::chrono::duration<int>(authDelay);
+
+    return suppressAuthAttempt;
+}
+
 IBiometricsFingerprint* BiometricsFingerprint::getInstance() {
     if (!sInstance) {
       sInstance = new BiometricsFingerprint();
@@ -281,6 +310,10 @@ void BiometricsFingerprint::notify(const fingerprint_msg_t *msg) {
                 FingerprintAcquiredInfo result =
                     VendorAcquiredFilter(msg->data.acquired.acquired_info, &vendorCode);
                 ALOGD("onAcquired(%d)", result);
+                if (thisPtr->onAuthFail()) {
+                    ALOGD("onAcquired: ignore");
+                    break;
+                }
                 if (!thisPtr->mClientCallback->onAcquired(devId, result, vendorCode).isOk()) {
                     ALOGE("failed to invoke fingerprint onAcquired callback");
                 }
@@ -315,6 +348,7 @@ void BiometricsFingerprint::notify(const fingerprint_msg_t *msg) {
                 ALOGD("onAuthenticated(fid=%d, gid=%d)",
                     msg->data.authenticated.finger.fid,
                     msg->data.authenticated.finger.gid);
+                thisPtr->onAuthSuccess();
                 const uint8_t* hat =
                     reinterpret_cast<const uint8_t *>(&msg->data.authenticated.hat);
                 const hidl_vec<uint8_t> token(
@@ -327,6 +361,10 @@ void BiometricsFingerprint::notify(const fingerprint_msg_t *msg) {
                 }
             } else {
                 // Not a recognized fingerprint
+                if (thisPtr->onAuthFail()) {
+                    ALOGD("onAuthenticated: ignore");
+                    break;
+                }
                 if (!thisPtr->mClientCallback->onAuthenticated(devId,
                         msg->data.authenticated.finger.fid,
                         msg->data.authenticated.finger.gid,
