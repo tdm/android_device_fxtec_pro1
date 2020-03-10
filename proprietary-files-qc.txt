@@ -536,7 +536,7 @@ vendor/lib64/libxuFPAlg.so
 
 # Fingerprint sensor
 vendor/lib64/hw/blestech.fingerprint.default.so
-vendor/lib64/hw/fingerprint.default.so
+vendor/lib64/hw/fingerprint.default.so:vendor/lib64/hw/fingerprint.msm8998.so
 vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
 vendor/lib/vendor.qti.hardware.fingerprint@1.0.so
 
