@@ -549,6 +549,10 @@ vendor/lib64/hw/fingerprint.default.so
 vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
 vendor/lib/vendor.qti.hardware.fingerprint@1.0.so
 
+# FM Radio
+lib64/fm_helium.so
+lib64/libfm-hci.so
+
 # Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
 vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
