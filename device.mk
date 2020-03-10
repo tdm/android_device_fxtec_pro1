@@ -41,10 +41,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_tuning_mixer.txt:$(TARGET_COPY_OUT_VENDOR)/etc/audio_tuning_mixer.txt \
     $(LOCAL_PATH)/audio/mixer_paths_tasha.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_tasha.xml
 
-# FM Radio
-PRODUCT_PACKAGES += \
-    FMRadio
-
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
@@ -254,6 +250,13 @@ PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.fxtec_msm8998 \
     fingerprintd \
     FxTecPocketMode
+
+# FM Radio
+PRODUCT_PACKAGES += \
+    FM2
+
+PRODUCT_BOOT_JARS += \
+    qcom.fmradio
 
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
