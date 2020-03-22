@@ -186,6 +186,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.wfc_avail_ovr=1 \
     persist.radio.calls.on.ims=1
 
+# USB
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.usb.config=diag,serial_cdev,rmnet,adb \
+    persist.vendor.usb.config.extra=none \
+    vendor.usb.rps_mask=0
+
 # VNDK
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.vndk.version=28
