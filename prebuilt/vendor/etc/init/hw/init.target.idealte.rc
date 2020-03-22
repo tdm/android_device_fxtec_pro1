@@ -1,4 +1,5 @@
-import /vendor/etc/init/hw/init.betterlife.rc
+on post-fs-data
+    mkdir /data/vendor/blfp 0700 system system
 
 on boot
    # add for touchscreen psensor
@@ -25,3 +26,19 @@ on boot
     chmod 0660 /sys/goodix/margin_x
     chown system system /sys/goodix/margin_y
     chmod 0660 /sys/goodix/margin_y
+
+    # Fingerprint
+    chmod 0666 /dev/blfp
+    chown system system /dev/blfp
+
+    chmod 0660 /dev/trusty-ipc-dev0
+    chown system system /dev/trusty-ipc-dev0
+
+service init-btlfp /vendor/bin/init.btlfp.sh
+    class late_start
+    user system
+    oneshot
+
+service btlfpserver /vendor/bin/hw/btlfpserver
+    class late_start
+    user system
