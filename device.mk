@@ -176,7 +176,8 @@ PRODUCT_PACKAGES += \
 # Common init scripts
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    init.qcom.rc
+    init.qcom.rc \
+    ueventd.qcom.rc
 
 # Device settings
 PRODUCT_PACKAGES += \
