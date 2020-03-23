@@ -1297,7 +1297,7 @@ service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
     group system wakelock
 
 # init.target.idealte.rc
-service init-btlfp /vendor/bin/init.btlfp.sh
+service init-btlfp-sh /vendor/bin/init.btlfp.sh
     class late_start
     user system
     oneshot
