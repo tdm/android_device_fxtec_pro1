@@ -183,6 +183,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.btlfp.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.btlfp.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.post_boot.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.post_boot.sh \
     $(LOCAL_PATH)/rootdir/etc/init.radio.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.radio.sh
 
 # Device settings
