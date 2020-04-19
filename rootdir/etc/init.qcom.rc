@@ -69,8 +69,6 @@ on fs
     mkdir /mnt/vendor/persist/data 0700 system system
 
 on post-fs
-    chmod 0755 /sys/kernel/debug/tracing
-
     # init.target.rc
     start vendor.qseecomd
     wait_for_prop vendor.sys.listeners.registered true
