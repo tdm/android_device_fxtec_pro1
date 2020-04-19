@@ -520,12 +520,6 @@ service vendor.port-bridge /system/vendor/bin/port-bridge
     disabled
     oneshot
 
-service qmiproxy /system/bin/qmiproxy
-    class main
-    user radio
-    group radio diag
-    disabled
-
 service vendor.netmgrd /system/vendor/bin/netmgrd
     class main
 
