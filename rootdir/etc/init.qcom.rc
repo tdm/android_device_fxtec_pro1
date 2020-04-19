@@ -494,13 +494,6 @@ service vendor.start_hci_filter /system/vendor/bin/wcnss_filter
     seclabel u:r:bluetooth:s0
     disabled
 
-service vendor.port-bridge /system/vendor/bin/port-bridge
-    class main
-    user radio
-    group radio system inet
-    disabled
-    oneshot
-
 service vendor.netmgrd /system/vendor/bin/netmgrd
     class main
 

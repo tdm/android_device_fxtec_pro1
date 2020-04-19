@@ -842,7 +842,6 @@ vendor/lib64/libqrtr.so
 -app/QtiTelephonyService/QtiTelephonyService.apk
 vendor/bin/ATFWD-daemon
 vendor/bin/netmgrd
-vendor/bin/port-bridge
 vendor/bin/rmt_storage
 vendor/bin/tftp_server
 vendor/bin/hw/qcrild
