@@ -440,9 +440,6 @@ on property:sys.boot_completed=1
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name
 
-on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
-
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
