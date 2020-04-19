@@ -407,9 +407,6 @@ on post-fs-data
     #Create dir for TUI
     mkdir /data/vendor/tui 0700 system system
 
-    #Start move time data to /data/vendor once post-fs-data done
-    start vendor.move_time_data
-
 service vendor.ssr_setup /system/vendor/bin/ssr_setup
     oneshot
     disabled
@@ -597,13 +594,6 @@ on charger
     setprop persist.sys.usb.config mass_storage
     load_system_props
     start qcom-post-boot
-
-service vendor.move_time_data /system/bin/move_time_data.sh
-    class main
-    user system
-    group system
-    disabled
-    oneshot
 
 #Set GPU Opengles version
 on property:vendor.opengles.version=*
