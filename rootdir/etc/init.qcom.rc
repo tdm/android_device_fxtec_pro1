@@ -74,9 +74,6 @@ on post-fs-data
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
     mkdir /data/misc/qvr 0770 system system
-    # Create directory for dolby audio
-    mkdir /data/vendor/misc/audio 0770 audio audio
-    mkdir /data/vendor/misc/audio/dolby 0770 audio audio
 
     # init.target.idealte.rc
     mkdir /data/vendor/blfp 0700 system system
