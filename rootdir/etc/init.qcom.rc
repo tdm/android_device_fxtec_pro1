@@ -73,7 +73,6 @@ on post-fs-data
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
-    mkdir /data/misc/qvr 0770 system system
 
     # init.target.idealte.rc
     mkdir /data/vendor/blfp 0700 system system
