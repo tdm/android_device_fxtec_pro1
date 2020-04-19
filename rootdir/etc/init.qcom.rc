@@ -526,12 +526,6 @@ service qmiproxy /system/bin/qmiproxy
     group radio diag
     disabled
 
-# QMUX must be in multiple groups to support external process connections
-service vendor.qmuxd /system/vendor/bin/qmuxd
-    class main
-    user root
-    group radio audio bluetooth gps nfc diag
-
 service vendor.netmgrd /system/vendor/bin/netmgrd
     class main
 
