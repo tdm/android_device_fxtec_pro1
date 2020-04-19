@@ -282,9 +282,6 @@ on boot
     chmod 0666 /dev/blfp
     chown system system /dev/blfp
 
-    chmod 0660 /dev/trusty-ipc-dev0
-    chown system system /dev/trusty-ipc-dev0
-
     # init.qcom.sh
     write /proc/sys/net/ipv6/conf/default/accept_ra_defrtr 1
 
