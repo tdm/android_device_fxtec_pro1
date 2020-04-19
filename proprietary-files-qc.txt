@@ -1090,8 +1090,6 @@ vendor/lib64/libwvhidl.so
 # Wi-Fi
 vendor/bin/cnss_diag
 vendor/bin/cnss-daemon
-vendor/bin/wigighalsvc
-vendor/bin/wigignpt
 vendor/bin/xtwifi-client
 vendor/bin/xtwifi-inet-agent
 vendor/lib64/vendor.qti.hardware.wigig.netperftuner@1.0.so
