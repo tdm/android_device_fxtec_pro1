@@ -582,10 +582,6 @@ on charger
     load_system_props
     start qcom-post-boot
 
-#Set gpu available frequencies property
-on property:vendor.gpu.available_frequencies=*
-    setprop ro.vendor.gpu.available_frequencies ${vendor.gpu.available_frequencies}
-
 #Peripheral manager
 service vendor.per_mgr /vendor/bin/pm-service
     class core
