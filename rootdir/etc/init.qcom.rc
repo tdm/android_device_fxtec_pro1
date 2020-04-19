@@ -468,12 +468,6 @@ on property:vendor.bluetooth.startbtsnoop=true
 on property:vendor.bluetooth.startbtsnoop=false
     stop vendor.btsnoop
 
-on property:vendor.bluetooth.startbtlogger=true
-    start vendor.bt_logger
-
-on property:vendor.bluetooth.startbtlogger=false
-    stop vendor.bt_logger
-
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
     start wcnss-service
@@ -526,13 +520,6 @@ service vendor.start_hci_filter /system/vendor/bin/wcnss_filter
     disabled
 
 service vendor.btsnoop /system/bin/btsnoop
-    user bluetooth
-    group bluetooth net_bt_admin sdcard_rw sdcard_r media_rw
-    class late_start
-    disabled
-    oneshot
-
-service vendor.bt_logger /system/bin/bt_logger
     user bluetooth
     group bluetooth net_bt_admin sdcard_rw sdcard_r media_rw
     class late_start
