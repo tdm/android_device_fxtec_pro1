@@ -377,11 +377,6 @@ service init-radio-sh /vendor/bin/init.radio.sh
     group root system radio
     oneshot
 
-service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
-    class core
-    user root
-    oneshot
-
 service loc_launcher /system/vendor/bin/loc_launcher
     class late_start
     user gps
@@ -521,6 +516,11 @@ service vendor.imsrcsservice /system/vendor/bin/imsrcsd
     class main
     user system
     group radio diag inet log wakelock
+
+service vendor.irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
+    class core
+    user root
+    oneshot
 
 service vendor.ipacm /system/vendor/bin/ipacm
     class main
