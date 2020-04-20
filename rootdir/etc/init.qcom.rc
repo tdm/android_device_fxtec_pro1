@@ -366,12 +366,6 @@ service charger /charger
     group system graphics
     seclabel u:r:healthd:s0
 
-service energy-awareness /system/vendor/bin/energy-awareness
-    class main
-    user root
-    group system
-    oneshot
-
 service init-btlfp-sh /vendor/bin/init.btlfp.sh
     class late_start
     user system
@@ -480,6 +474,12 @@ service vendor.dpmQmiMgr /vendor/bin/dpmQmiMgr
     class main
     user system
     group system
+
+service vendor.energy-awareness /vendor/bin/energy-awareness
+    class main
+    user root
+    group system
+    oneshot
 
 service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
     class main
