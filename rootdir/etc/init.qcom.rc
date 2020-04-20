@@ -357,11 +357,6 @@ on property:sys.boot_completed=1
 
 # Services start here
 
-service adsprpcd /system/vendor/bin/adsprpcd
-    class main
-    user media
-    group media
-
 service btlfpserver /vendor/bin/hw/btlfpserver
     class late_start
     user system
@@ -470,6 +465,11 @@ service thermal-engine /system/vendor/bin/thermal-engine
     socket thermal-recv-passive-client stream 0666 system system
     socket thermal-send-rule stream 0660 system system
     group root
+
+service vendor.adsprpcd /vendor/bin/adsprpcd
+    class main
+    user media
+    group media
 
 service vendor.atfwd /vendor/bin/ATFWD-daemon
     class main
