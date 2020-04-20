@@ -377,11 +377,6 @@ service init-radio-sh /vendor/bin/init.radio.sh
     group root system radio
     oneshot
 
-service loc_launcher /system/vendor/bin/loc_launcher
-    class late_start
-    user gps
-    group gps
-
 service ppd /vendor/bin/mm-pp-dpps
     class late_start
     user system
@@ -526,6 +521,11 @@ service vendor.ipacm /system/vendor/bin/ipacm
     class main
     user radio
     group radio inet
+
+service vendor.loc_launcher /vendor/bin/loc_launcher
+    class late_start
+    user gps
+    group gps
 
 service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
     class main
