@@ -366,25 +366,6 @@ service charger /charger
     group system graphics
     seclabel u:r:healthd:s0
 
-service cnss-daemon /system/vendor/bin/cnss-daemon -n -l
-    class late_start
-    user system
-    group system inet net_admin wifi
-    capabilities NET_ADMIN
-
-on property:sys.shutdown.requested=*
-    write /sys/kernel/shutdown_wlan/shutdown 1
-    stop cnss-daemon
-
-service cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
-    class main
-    user system
-    group system wifi inet sdcard_rw media_rw diag
-    oneshot
-
-on property:vold.decrypt=trigger_restart_framework
-    start cnss_diag
-
 service dpmQmiMgr /system/vendor/bin/dpmQmiMgr
     class main
     user system
@@ -480,6 +461,25 @@ service vendor.cnd /system/vendor/bin/cnd
     class main
     user system
     group system wifi inet radio wakelock net_admin
+
+service vendor.cnss-daemon /vendor/bin/cnss-daemon -n -l
+    class late_start
+    user system
+    group system inet net_admin wifi
+    capabilities NET_ADMIN
+
+on property:sys.shutdown.requested=*
+    write /sys/kernel/shutdown_wlan/shutdown 1
+    stop vendor.cnss-daemon
+
+service vendor.cnss_diag /vendor/bin/cnss_diag -q -f -t HELIUM
+    class main
+    user system
+    group system wifi inet sdcard_rw media_rw diag
+    oneshot
+
+on property:vold.decrypt=trigger_restart_framework
+    start vendor.cnss_diag
 
 service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
     class main
