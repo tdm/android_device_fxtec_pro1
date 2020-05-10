@@ -7,7 +7,7 @@
 
 # A/B fstab.qcom variant
 #<src>                                   <mnt_point>             <type> <mnt_flags and options>                          <fs_mgr_flags>
-/dev/block/bootdevice/by-name/system     /                       ext4   ro,barrier=1,discard                             wait,slotselect,avb
+/dev/block/bootdevice/by-name/system     /                       ext4   ro,barrier=1                                     wait,slotselect,avb
 /dev/block/bootdevice/by-name/userdata   /data                   ext4   noatime,nosuid,nodev,barrier=1,noauto_da_alloc,discard wait,check,formattable,latemount,fileencryption=ice:aes-256-cts,quota,reservedsize=128M
 /devices/soc/c0a4900.sdhci/mmc_host*     /storage/sdcard1        vfat   nosuid,nodev                                     wait,voldmanaged=sdcard1:auto,encryptable=footer
 /devices/soc/a800000.ssusb/a800000.dwc3/xhci-hcd.0.auto/usb* auto   auto defaults voldmanaged=usb:auto
