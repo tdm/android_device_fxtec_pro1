@@ -403,4 +403,4 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/qg_battery       0660   system     system
 
 # Fingerprint
-/dev/blfp             0666   system     system
+/dev/blfp             0660   system     system
