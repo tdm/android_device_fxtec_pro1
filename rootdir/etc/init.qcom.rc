@@ -163,25 +163,28 @@ on boot
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/device/extldo
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
-    chmod 0666 /sys/class/leds/led:flash_0/brightness
-    chmod 0666 /sys/class/leds/led:flash_1/brightness
+    chown system system /sys/class/leds/blue/blink
+    chown system system /sys/class/leds/green/blink
+
+    chmod 0660 /sys/class/leds/led:flash_0/brightness
+    chmod 0660 /sys/class/leds/led:flash_1/brightness
     chown system system /sys/class/leds/led:flash_0/brightness
     chown system system /sys/class/leds/led:flash_1/brightness
 
-    chmod 0666 /sys/class/leds/torch-light0/brightness
-    chmod 0666 /sys/class/leds/torch-light1/brightness
-    chown system system /sys/class/leds/torch-light0/brightness
-    chown system system /sys/class/leds/torch-light1/brightness
+    chmod 0660 /sys/class/leds/led:switch_0/brightness
+    chmod 0660 /sys/class/leds/led:switch_1/brightness
+    chown system system /sys/class/leds/led:switch_0/brightness
+    chown system system /sys/class/leds/led:switch_1/brightness
 
-    chmod 0777 /sys/class/leds/led:torch_0/brightness
-    chmod 0777 /sys/class/leds/led:switch_0/brightness
-    chmod 0777 /sys/class/leds/led:torch_1/brightness
+    chmod 0660 /sys/class/leds/led:torch_0/brightness
+    chmod 0660 /sys/class/leds/led:torch_1/brightness
     chown system system /sys/class/leds/led:torch_0/brightness
     chown system system /sys/class/leds/led:torch_1/brightness
-    chown system system /sys/class/leds/led:switch_0/brightness
 
-    chmod 0666 /sys/class/leds/led:switch_0/brightness
-    chmod 0666 /sys/class/leds/led:switch_1/brightness
+    chmod 0660 /sys/class/leds/torch-light0/brightness
+    chmod 0660 /sys/class/leds/torch-light1/brightness
+    chown system system /sys/class/leds/torch-light0/brightness
+    chown system system /sys/class/leds/torch-light1/brightness
 
     #Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
@@ -262,12 +265,6 @@ on boot
     setprop vendor.usb.rmnet.inst.name "rmnet"
     setprop vendor.usb.dpl.inst.name "dpl"
     setprop sys.usb.configfs 1
-
-    # init.target.idealte.rc
-    # add for apps notification
-    chown system system /sys/class/leds/red/blink
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/blue/blink
 
     # Keyboard
     mkdir /persist/data/keyboard 0771 system system
