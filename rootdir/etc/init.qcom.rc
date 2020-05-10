@@ -269,11 +269,6 @@ on boot
     setprop sys.usb.configfs 1
 
     # init.target.idealte.rc
-    # add for touchscreen psensor
-    chmod 0664 /sys/devices/soc/c1b5000.i2c/i2c-7/7-0038//fts_in_call
-    chown system system /sys/devices/soc/c1b5000.i2c/i2c-7/7-0038//fts_in_call
-    chmod 0664 /sys/devices/soc/c1b5000.i2c/i2c-7/7-0038/fts_proximity
-    chown system system /sys/devices/soc/c1b5000.i2c/i2c-7/7-0038/fts_proximity
     # add for apps notification
     chown system system /sys/class/leds/red/blink
     chown system system /sys/class/leds/green/blink
