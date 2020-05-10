@@ -166,6 +166,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnCdmaDevice=1 \
     keyguard.no_require_sim=true \
     ro.com.android.dataroaming=true \
+    ro.telephony.call_ring.multiple=false \
     persist.sys.oem_smooth=1 \
     persist.radio.multisim.config=dsds \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
@@ -195,3 +196,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # VNDK
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.vndk.version=28
+
+# WLAN
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0
