@@ -355,15 +355,15 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/msm_npu             0644   system     system
 
 # USB role switch
-/sys/class/dual_role_usb/*	data_role	0660	system	system
-/sys/class/dual_role_usb/*	power_role	0660	system	system
-/sys/class/dual_role_usb/*	mode		0660	system	system
+/sys/class/dual_role_usb/*  data_role                0660    system  system
+/sys/class/dual_role_usb/*  power_role               0660    system  system
+/sys/class/dual_role_usb/*  mode                     0660    system  system
 
 #Memory Offline
-/sys/devices/system/memory/memory* state    0660 system system
+/sys/devices/system/memory/memory* state             0660    system  system
 # add for security card
-/dev/block/mmcblk2	0666   root     root
-/dev/block/mmcblk2p1	0666   root     root
+/dev/block/mmcblk2                                   0666    root    root
+/dev/block/mmcblk2p1                                 0666    root    root
 
 # sys-fs display
 /sys/class/graphics/fb*     hpd                      0664    system  graphics
