@@ -82,12 +82,27 @@ on fs
 
     chmod 0664 /mnt/vendor/persist/sensors/sensors_settings
 
-on post-fs
+    # Start HW service manager early
+    start hwservicemanager
+
+    # qseecomd needs /dev/block/bootdevice
+    # vold needs keymaster that needs qseecomd
     start vendor.qseecomd
-    wait_for_prop vendor.sys.listeners.registered true
+
+on post-fs
     write /dev/ipa 1
 
+    # Wait for qseecomd started
+    wait_for_prop vendor.sys.listeners.registered true
+
 on late-fs
+    # Start services for bootanim
+    start surfaceflinger
+    start bootanim
+    start vendor.hwcomposer-2-1
+    start vendor.configstore-hal
+    start vendor.gralloc-2-0
+
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.qcom --late
 
