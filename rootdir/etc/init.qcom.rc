@@ -49,12 +49,36 @@ on fs
     # init.target.rc
     wait /dev/block/platform/soc/1da4000.ufshc
     symlink /dev/block/platform/soc/1da4000.ufshc /dev/block/bootdevice
+
     mount_all /vendor/etc/fstab.qcom
+
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
 
     restorecon_recursive /mnt/vendor/persist
+
+    mkdir /mnt/vendor/persist/alarm 0770 system system
+    mkdir /mnt/vendor/persist/bluetooth 0770 bluetooth bluetooth
     mkdir /mnt/vendor/persist/data 0700 system system
+    mkdir /mnt/vendor/persist/data/keyboard 0771 system system
+    mkdir /mnt/vendor/persist/display 0770 system graphics
+    mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
+    mkdir /mnt/vendor/persist/secnvm 0770 system system
+    mkdir /mnt/vendor/persist/time 0770 system system
+    mkdir /mnt/vendor/persist/vpp 0770 media media
+
+    chown system system /mnt/vendor/persist/sensors
+    chown system system /mnt/vendor/persist/sensors/sns.reg
+    chown system system /mnt/vendor/persist/sensors/sensors_list.txt
+    chown system system /mnt/vendor/persist/sensors/registry
+    chown system system /mnt/vendor/persist/sensors/registry/registry
+    chown system system /mnt/vendor/persist/sensors/registry/registry/sensors_registry
+    chown system system /mnt/vendor/persist/sensors/sensors_settings
+    chown system system /mnt/vendor/persist/sensors/registry/sns_reg_config
+    chown system system /mnt/vendor/persist/sensors/registry/sns_reg_version
+    chown system system /mnt/vendor/persist/sensors/registry/config
+
+    chmod 0664 /mnt/vendor/persist/sensors/sensors_settings
 
 on post-fs
     # init.target.rc
@@ -136,18 +160,6 @@ on early-boot
     write /sys/kernel/boot_cdsp/boot 1
     write /sys/kernel/boot_slpi/boot 1
 
-    chown system system /mnt/vendor/persist/sensors
-    chown system system /mnt/vendor/persist/sensors/sns.reg
-    chown system system /mnt/vendor/persist/sensors/sensors_list.txt
-    chown system system /mnt/vendor/persist/sensors/registry
-    chown system system /mnt/vendor/persist/sensors/registry/registry
-    chown system system /mnt/vendor/persist/sensors/registry/registry/sensors_registry
-    chown system system /mnt/vendor/persist/sensors/sensors_settings
-    chown system system /mnt/vendor/persist/sensors/registry/sns_reg_config
-    chown system system /mnt/vendor/persist/sensors/registry/sns_reg_version
-    chown system system /mnt/vendor/persist/sensors/registry/config
-    chmod 0664 /mnt/vendor/persist/sensors/sensors_settings
-
 on boot
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
@@ -195,11 +207,6 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
-    mkdir /mnt/vendor/persist/bluetooth 0770 bluetooth bluetooth
-    mkdir /mnt/vendor/persist/alarm 0770 system system
-    mkdir /mnt/vendor/persist/time 0770 system system
-    mkdir /mnt/vendor/persist/secnvm 0770 system system
-
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
@@ -222,16 +229,6 @@ on boot
 
     # bond0 used by FST Manager
     chown wifi wifi /sys/class/net/bond0/bonding/queue_id
-
-    # Create directory used for display
-    mkdir /mnt/vendor/persist/display 0770 system graphics
-
-    # Create vpp directory
-    mkdir /mnt/vendor/persist/vpp 0770 media media
-
-
-    # Create hvdcp_opti directory
-    mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
 
     # Set WLAN control node permissions
     chown wifi wifi /sys/kernel/boot_wlan/boot_wlan
@@ -259,7 +256,6 @@ on boot
     chmod 0660 /dev/cpuset/camera-daemon/tasks
 
     # Keyboard
-    mkdir /persist/data/keyboard 0771 system system
     chown system system /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/layout
     chmod 0660 /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/layout
     chown system system /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/keymap
