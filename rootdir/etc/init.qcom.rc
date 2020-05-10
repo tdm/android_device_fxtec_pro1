@@ -26,7 +26,6 @@
 #
 
 import /vendor/etc/init/hw/init.qcom.usb.rc
-import /vendor/etc/init/hw/init.msm.usb.configfs.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -259,13 +258,6 @@ on boot
     chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
     chmod 0660 /dev/cpuset/camera-daemon/tasks
 
-    # USB controller configuration
-    setprop vendor.usb.rndis.func.name "gsi"
-    setprop vendor.usb.rmnet.func.name "gsi"
-    setprop vendor.usb.rmnet.inst.name "rmnet"
-    setprop vendor.usb.dpl.inst.name "dpl"
-    setprop sys.usb.configfs 1
-
     # Keyboard
     mkdir /persist/data/keyboard 0771 system system
     chown system system /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/layout
@@ -285,7 +277,6 @@ on boot
     write /proc/sys/net/ipv6/conf/default/accept_ra_defrtr 1
 
 on charger
-    setprop persist.sys.usb.config mass_storage
     load_system_props
     start qcom-post-boot
 
