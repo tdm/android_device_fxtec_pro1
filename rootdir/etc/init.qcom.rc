@@ -310,6 +310,8 @@ on property:sys.boot_completed=1
 service btlfpserver /vendor/bin/hw/btlfpserver
     class late_start
     user system
+    group system
+    interface vendor.hardware.betterlife.fingerprint@1.0::IBtlFingerprint default
 
 service charger /charger
     class charger
