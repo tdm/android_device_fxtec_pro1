@@ -31,11 +31,9 @@ on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
 
-    # init.target.rc
     write /proc/sys/kernel/sched_boost 1
 
 on init
-    # init.target.rc
     write /dev/stune/foreground/schedtune.sched_boost_no_override 1
     write /dev/stune/top-app/schedtune.sched_boost_no_override 1
     write /dev/stune/schedtune.colocate 0
@@ -46,7 +44,6 @@ on init
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
 on fs
-    # init.target.rc
     wait /dev/block/platform/soc/1da4000.ufshc
     symlink /dev/block/platform/soc/1da4000.ufshc /dev/block/bootdevice
 
@@ -81,13 +78,11 @@ on fs
     chmod 0664 /mnt/vendor/persist/sensors/sensors_settings
 
 on post-fs
-    # init.target.rc
     start vendor.qseecomd
     wait_for_prop vendor.sys.listeners.registered true
     write /dev/ipa 1
 
 on post-fs-data
-    # init.target.idealte.rc
     mkdir /data/vendor/blfp 0700 system system
 
     mkdir /data/vendor/ramdump 0771 root system
@@ -234,7 +229,6 @@ on boot
     chown wifi wifi /sys/kernel/boot_wlan/boot_wlan
     chown wifi wifi /sys/module/wlan/parameters/fwpath
 
-    # init.target.rc
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/foreground/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-3
@@ -269,7 +263,6 @@ on boot
     chown system system /sys/goodix/margin_y
     chmod 0660 /sys/goodix/margin_y
 
-    # init.qcom.sh
     write /proc/sys/net/ipv6/conf/default/accept_ra_defrtr 1
 
 on charger
