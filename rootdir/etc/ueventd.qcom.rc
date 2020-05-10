@@ -361,9 +361,6 @@ firmware_directories /vendor/firmware_mnt/image/
 
 #Memory Offline
 /sys/devices/system/memory/memory* state             0660    system  system
-# add for security card
-/dev/block/mmcblk2                                   0666    root    root
-/dev/block/mmcblk2p1                                 0666    root    root
 
 # sys-fs display
 /sys/class/graphics/fb*     hpd                      0664    system  graphics
