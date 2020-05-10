@@ -8,3 +8,6 @@ camera.on                              u:object_r:camera_prop:s0
 persist.vendor.camera.debug.logfile    u:object_r:camera_prop:s0
 
 vendor.display.mode                    u:object_r:vendor_display_prop:s0
+
+persist.vendor.usb.config              u:object_r:vendor_usb_config_prop:s0
+vendor.usb.config                      u:object_r:vendor_usb_config_prop:s0
