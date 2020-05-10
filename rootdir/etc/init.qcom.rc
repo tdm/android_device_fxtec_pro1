@@ -67,18 +67,8 @@ on post-fs
     write /dev/ipa 1
 
 on post-fs-data
-    # init.target.rc
-    mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
-
     # init.target.idealte.rc
     mkdir /data/vendor/blfp 0700 system system
-
-    #Change ownership to system
-    chown system system /data/vendor/tombstones
 
     mkdir /data/vendor/ramdump 0771 root system
     mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
