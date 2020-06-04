@@ -2,3 +2,8 @@ allow init proc_alarm_boot:file { r_file_perms };
 
 allow init sysfs_fpc:file { r_file_perms };
 allow init sysfs_data:file { r_file_perms };
+
+allow init hwservicemanager:binder call;
+allow init self:netlink_socket { bind create read write };
+allow init system_server:binder call;
+allow init tee_device:chr_file ioctl;
