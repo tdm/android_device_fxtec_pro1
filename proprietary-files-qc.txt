@@ -775,10 +775,6 @@ framework/com.qti.snapdragon.sdk.display.jar
 vendor/bin/mm-pp-dpps
 vendor/lib64/libdisp-aba.so
 
-# Power
-vendor/lib64/hw/power.qcom.so
-vendor/lib/hw/power.qcom.so
-
 # PowerOffAlarm
 framework/vendor.qti.hardware.alarm-V1.0-java.jar
 lib/vendor.qti.hardware.alarm@1.0.so
