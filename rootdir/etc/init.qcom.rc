@@ -294,6 +294,8 @@ on charger
     start qcom-post-boot
 
 on property:sys.boot_completed=1
+    setprop sys.io.scheduler bfq
+
     # Enable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 1
