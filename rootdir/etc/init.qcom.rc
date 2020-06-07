@@ -34,19 +34,108 @@ on early-init
     write /proc/sys/kernel/sched_boost 1
 
 on init
+    write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
+
     # Disable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 0
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 0
     write /sys/module/lpm_levels/parameters/sleep_disabled Y
 
-    write /dev/stune/foreground/schedtune.sched_boost_no_override 1
-    write /dev/stune/top-app/schedtune.sched_boost_no_override 1
-    write /dev/stune/schedtune.colocate 0
-    write /dev/stune/background/schedtune.colocate 0
-    write /dev/stune/system-background/schedtune.colocate 0
-    write /dev/stune/foreground/schedtune.colocate 0
-    write /dev/stune/top-app/schedtune.colocate 1
-    write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
+    # Set up schedtune
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 10
+    write /dev/stune/top-app/schedtune.prefer_idle 1
+
+    # disable thermal hotplug for configuration
+    write /sys/module/msm_thermal/core_control/enabled 0
+
+    # bring CPUs online
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+
+    # configure governor settings for little cluster
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us 20000
+
+    # configure governor settings for big cluster
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpufreq/policy4/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpufreq/policy4/schedutil/down_rate_limit_us 20000
+
+    # enable thermal hotplug
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+    # disable retention
+    write /sys/module/lpm_levels/system/pwr/cpu0/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/pwr/cpu1/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/pwr/cpu2/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/pwr/cpu3/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/perf/cpu4/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/perf/cpu5/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/perf/cpu6/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/perf/cpu7/ret/idle_enabled N
+    write /sys/module/lpm_levels/system/pwr/pwr-l2-dynret/idle_enabled N
+    write /sys/module/lpm_levels/system/pwr/pwr-l2-ret/idle_enabled N
+    write /sys/module/lpm_levels/system/perf/perf-l2-dynret/idle_enabled N
+    write /sys/module/lpm_levels/system/perf/perf-l2-ret/idle_enabled N
+
+    # ZRAM setup
+    write /sys/block/zram0/comp_algorithm lz4
+    write /proc/sys/vm/page-cluster 0
+
+    # create necessary cpusets
+    mkdir /dev/cpuset/camera-daemon 0750 cameraserver cameraserver
+    write /dev/cpuset/camera-daemon/cpus 0
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0660 /dev/cpuset/camera-daemon/tasks
+
+    # Enable bus-dcvs
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/governor bw_hwmon
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/polling_interval 50
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/min_freq 1525
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/mbps_zones "3143 5859 11863 13763"
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/sample_ms 4
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent 34
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/hist_memory 20
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_length 10
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_ceil_mbps 0
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_io_percent 34
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_delay 20
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/guard_band_mbps 0
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/up_scale 250
+    write /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps 1600
+
+    write /sys/devices/soc/soc:qcom,memlat-cpu0/devfreq/soc:qcom,memlat-cpu0/governor mem_latency
+    write /sys/devices/soc/soc:qcom,memlat-cpu0/devfreq/soc:qcom,memlat-cpu0/polling_interval 10
+    write /sys/devices/soc/soc:qcom,memlat-cpu0/devfreq/soc:qcom,memlat-cpu0/mem_latency/ratio_ceil 400
+
+    write /sys/devices/soc/soc:qcom,memlat-cpu0/devfreq/soc:qcom,memlat-cpu4/governor mem_latency
+    write /sys/devices/soc/soc:qcom,memlat-cpu0/devfreq/soc:qcom,memlat-cpu4/polling_interval 10
+    write /sys/devices/soc/soc:qcom,memlat-cpu0/devfreq/soc:qcom,memlat-cpu4/mem_latency/ratio_ceil 400
+
+    write /sys/devices/soc/soc:qcom,mincpubw/devfreq/soc:qcom,mincpubw/governor cpufreq
+
+    # Setup permission for powerHAL
+    chown system system /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_trigger_count
+    chown system system /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/hist_memory
+    chown system system /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_length
+
+    # Setup all the sub-system as related
+    write /sys/bus/msm_subsys/devices/subsys0/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys1/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys2/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys3/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys4/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys5/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys6/restart_level RELATED
 
 on fs
     wait /dev/block/platform/soc/1da4000.ufshc
@@ -173,6 +262,18 @@ on post-fs-data
     chown radio radio /data/vendor/radio/db_check_done
     chmod 0660 /data/vendor/radio/db_check_done
 
+    # Set aggressive read ahead for dm-0 and dm-1 during boot up
+    write /sys/block/dm-0/queue/read_ahead_kb 2048
+    write /sys/block/dm-1/queue/read_ahead_kb 2048
+
+    # Setup permission for powerHAL
+    chown system system /dev/stune/top-app/schedtune.boost
+    chown system system /dev/cpu_dma_latency
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chown system system /sys/class/devfreq/soc:qcom,gpubw/min_freq
+    chown system system /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/min_freq
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -257,26 +358,6 @@ on boot
     chown wifi wifi /sys/kernel/boot_wlan/boot_wlan
     chown wifi wifi /sys/module/wlan/parameters/fwpath
 
-    write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/foreground/cpus 0-3
-    write /dev/cpuset/foreground/boost/cpus 0-3
-    write /dev/cpuset/background/cpus 0-3
-    write /dev/cpuset/system-background/cpus 0-3
-    write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 0-7
-    write /dev/cpuset/foreground/boost/cpus 0-7
-    write /dev/cpuset/background/cpus 0-7
-    write /dev/cpuset/system-background/cpus 0-7
-
-    # Add a cpuset for the camera daemon
-    # We want all cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
-    write /dev/cpuset/camera-daemon/mems 0
-    chown cameraserver cameraserver /dev/cpuset/camera-daemon
-    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
-    chmod 0660 /dev/cpuset/camera-daemon/tasks
-
     # Keyboard
     chown system system /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/layout
     chmod 0660 /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/layout
@@ -295,7 +376,6 @@ on boot
 
 on charger
     load_system_props
-    start qcom-post-boot
 
 on property:sys.boot_completed=1
     setprop sys.io.scheduler bfq
@@ -305,9 +385,24 @@ on property:sys.boot_completed=1
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 1
     write /sys/module/lpm_levels/parameters/sleep_disabled N
 
+    write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/system-background/cpus 0-3
+    write /dev/cpuset/camera-daemon/cpus 0-3
+
+    # Reset read ahead for dm-0 and dm-1 to 512kb
+    write /sys/block/dm-0/queue/read_ahead_kb 512
+    write /sys/block/dm-1/queue/read_ahead_kb 512
+
     #WDSP FW boot sysfs node used by STHAL
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name
+
+    # Let kernel know our image version/variant/crm_version
+    write /sys/devices/soc0/select_image 10
+    write /sys/devices/soc0/image_version "10:${ro.build.id}:${ro.build.version.incremental}"
+    write /sys/devices/soc0/image_variant "${ro.product.name}-${ro.build.type}"
+    write /sys/devices/soc0/image_crm_version "${ro.build.version.codename}"
 
     write /dev/kmsg "Boot completed "
 
@@ -340,16 +435,6 @@ service init-radio-sh /vendor/bin/init.radio.sh
     user root
     group root system radio
     oneshot
-
-service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
-    class late_start
-    user root
-    group root system wakelock graphics
-    disabled
-    oneshot
-
-on property:sys.boot_completed=1
-    start qcom-post-boot
 
 service vendor.adsprpcd /vendor/bin/adsprpcd
     class main
