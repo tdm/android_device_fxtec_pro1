@@ -180,6 +180,9 @@ on early-boot
     # wait for devices
     wait_for_prop vendor.qcom.devup 1
 
+    # Permission for Vibrator
+    chown system system /sys/class/timed_output/vibrator/vmax_mv
+
 on boot
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
