@@ -1,152 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+**
+** Copyright 2009, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License")
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
 <device name="Android">
-    <item name="none">0</item>
-    <item name="screen.on">55</item>
-    <item name="screen.full">216</item>
-    <item name="bluetooth.active">45</item>
-    <item name="bluetooth.on">0.6</item>
-    <item name="wifi.on">8</item>
-    <item name="wifi.active">157</item>
-    <item name="wifi.scan">150</item>
-    <item name="dsp.audio">37.7</item>
-    <item name="dsp.video">56</item>
-    <item name="camera.flashlight">102</item>
-    <item name="camera.avg">570</item>
-    <item name="radio.active">133</item>
-    <item name="radio.scanning">1</item>
-    <item name="gps.on">34</item>
-    <array name="radio.on">
-        <value>3</value>
-        <value>2</value>
-    </array>
-    <array name="cpu.clusters.cores">
-        <value>4</value>
-        <value>4</value>
-    </array>
-    <array name="cpu.core_speeds.cluster0">
-        <value>300000</value>
-        <value>364800</value>
-        <value>441600</value>
-        <value>518400</value>
-        <value>595200</value>
-        <value>672000</value>
-        <value>748800</value>
-        <value>825600</value>
-        <value>883200</value>
-        <value>960000</value>
-        <value>1036800</value>
-        <value>1094400</value>
-        <value>1171200</value>
-        <value>1248000</value>
-        <value>1324800</value>
-        <value>1401600</value>
-        <value>1478400</value>
-        <value>1555200</value>
-        <value>1670400</value>
-        <value>1747200</value>
-        <value>1824000</value>
-        <value>1900800</value>
-    </array>
-    <array name="cpu.core_speeds.cluster1">
-        <value>300000</value>
-        <value>345600</value>
-        <value>422400</value>
-        <value>499200</value>
-        <value>576000</value>
-        <value>652800</value>
-        <value>729600</value>
-        <value>806400</value>
-        <value>902400</value>
-        <value>979200</value>
-        <value>1056000</value>
-        <value>1132800</value>
-        <value>1190400</value>
-        <value>1267200</value>
-        <value>1344000</value>
-        <value>1420800</value>
-        <value>1497600</value>
-        <value>1574400</value>
-        <value>1651200</value>
-        <value>1728000</value>
-        <value>1804800</value>
-        <value>1881600</value>
-        <value>1958400</value>
-        <value>2035200</value>
-        <value>2112000</value>
-        <value>2208000</value>
-        <value>2265600</value>
-        <value>2323200</value>
-        <value>2342400</value>
-        <value>2361600</value>
-        <value>2457600</value>
-    </array>
-    <array name="cpu.core_power.cluster0">
-        <value>45.2</value>
-        <value>46.2</value>
-        <value>47.2</value>
-        <value>48.5</value>
-        <value>49.2</value>
-        <value>47.5</value>
-        <value>47.3</value>
-        <value>47.7</value>
-        <value>50.6</value>
-        <value>50.4</value>
-        <value>57</value>
-        <value>60.6</value>
-        <value>61.8</value>
-        <value>77.1</value>
-        <value>67</value>
-        <value>70.1</value>
-        <value>72.5</value>
-        <value>78</value>
-        <value>86.1</value>
-        <value>88.1</value>
-        <value>92.5</value>
-        <value>99.1</value>
-    </array>
-    <array name="cpu.core_power.cluster1">
-        <value>45.4</value>
-        <value>45.7</value>
-        <value>48.7</value>
-        <value>52.4</value>
-        <value>51</value>
-        <value>55.5</value>
-        <value>59.7</value>
-        <value>49.3</value>
-        <value>50.4</value>
-        <value>58.5</value>
-        <value>54.9</value>
-        <value>55.3</value>
-        <value>74.4</value>
-        <value>80.5</value>
-        <value>96</value>
-        <value>85.2</value>
-        <value>98.6</value>
-        <value>110.3</value>
-        <value>122.1</value>
-        <value>127.7</value>
-        <value>139</value>
-        <value>153.6</value>
-        <value>181.9</value>
-        <value>192</value>
-        <value>219</value>
-        <value>251</value>
-        <value>353</value>
-        <value>387.7</value>
-        <value>403</value>
-        <value>414</value>
-        <value>415.5</value>
-    </array>
-    <item name="cpu.suspend">5</item>
-    <item name="cpu.idle">8</item>
-    <item name="battery.capacity">3300</item>
-    <array name="wifi.batchedscan">
-        <value>.0002</value>
-        <value>.002</value>
-        <value>.02</value>
-        <value>.2</value>
-        <value>2</value>
-    </array>
-    <allow-in-power-save package="com.google.android.gms" />
-    <allow-in-data-usage-save package="com.google.android.gms" />
+  <!-- Most values are the incremental current used by a feature,
+       in mA (measured at nominal voltage).
+       The default values are deliberately incorrect dummy values.
+       OEM's must measure and provide actual values before
+       shipping a device.
+       Example real-world values are given in comments, but they
+       are totally dependent on the platform and can vary
+       significantly, so should be measured on the shipping platform
+       with a power meter. -->
+  <item name="ambient.on">100</item>  <!-- ~100mA -->
+  <item name="screen.on">100</item>  <!-- ~100mA -->
+  <item name="screen.full">100</item>  <!-- ~100mA -->
+  <item name="bluetooth.active">10</item> <!-- Bluetooth data transfer, ~10mA -->
+  <item name="bluetooth.on">0.1</item>  <!-- Bluetooth on & connectable, but not connected, ~0.1mA -->
+  <item name="wifi.on">3</item>  <!-- ~3mA -->
+  <item name="wifi.active">200</item>  <!-- WIFI data transfer, ~200mA -->
+  <item name="wifi.scan">100</item>  <!-- WIFI network scanning, ~100mA -->
+  <item name="audio">10</item> <!-- ~10mA -->
+  <item name="video">50</item> <!-- ~50mA -->
+  <item name="camera.flashlight">160</item> <!-- Avg. power for camera flash, ~160mA -->
+  <item name="camera.avg">550</item> <!-- Avg. power use of camera in standard usecases, ~550mA -->
+  <item name="gps.on">50</item> <!-- ~50mA -->
+
+  <!-- Radio related values. For modems without energy reporting support in firmware, use
+       radio.active, radio.scanning, and radio.on. -->
+  <item name="radio.active">200</item> <!-- ~200mA -->
+  <item name="radio.scanning">10</item> <!-- cellular radio scanning for signal, ~10mA -->
+  <!-- Current consumed by the radio at different signal strengths, when paging -->
+  <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
+      <value>2</value> <!-- ~2mA -->
+      <value>1</value> <!-- ~1mA -->
+  </array>
+
+  <!-- A list of heterogeneous CPU clusters, where the value for each cluster represents the
+       number of CPU cores for that cluster.
+
+       Ex:
+       <array name="cpu.clusters.cores">
+         <value>4</value> // cluster 0 has cpu0, cpu1, cpu2, cpu3
+         <value>2</value> // cluster 1 has cpu4, cpu5
+       </array> -->
+  <array name="cpu.clusters.cores">
+      <value>1</value> <!-- cluster 0 has cpu0 -->
+  </array>
+
+    <!-- Different CPU speeds for cluster 0 as reported in
+       /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state.
+
+       There must be one of these for each cluster, labeled:
+       cpu.speeds.cluster0, cpu.speeds.cluster1, etc... -->
+  <array name="cpu.speeds.cluster0">
+      <value>400000</value> <!-- 400 MHz CPU speed -->
+  </array>
+
+  <!-- Current at each CPU speed for cluster 0, as per 'cpu.speeds.cluster0'.
+       Like cpu.speeds.cluster0, there must be one of these present for
+       each heterogeneous CPU cluster. -->
+  <array name="cpu.active.cluster0">
+      <value>100</value>  <!-- ~100mA -->
+  </array>
+
+  <!-- Current when CPU is idle -->
+  <item name="cpu.idle">0.1</item>
+
+  <!-- Memory bandwidth power values in mA at the rail. There must be one value
+       for each bucket defined in the device tree. -->
+  <array name="memory.bandwidths">
+    <value>22.7</value> <!-- mA for bucket: 100mb/s-1.5 GB/s memory bandwidth -->
+  </array>
+
+  <!-- This is the battery capacity in mAh (measured at nominal voltage) -->
+  <item name="battery.capacity">1000</item>
+
+  <!-- Wifi related values. -->
+  <!-- Idle Receive current for wifi radio in mA. 0 by default-->
+  <item name="wifi.controller.idle">0</item>
+  <!-- Rx current for wifi radio in mA. 0 by default-->
+  <item name="wifi.controller.rx">0</item>
+  <!-- Tx current for wifi radio in mA. 0 by default-->
+  <item name="wifi.controller.tx">0</item>
+  <!-- Current at each of the wifi Tx levels in mA. The number of tx levels varies per device
+       and is available only of wifi chipsets which support the tx level reporting. Use
+        wifi.tx for other chipsets. none by default -->
+  <array name="wifi.controller.tx_levels"> <!-- mA -->
+  </array>
+  <!-- Operating volatage for wifi radio in mV. 0 by default-->
+  <item name="wifi.controller.voltage">0</item>
+
+  <array name="wifi.batchedscan"> <!-- mA -->
+    <value>.0002</value> <!-- 1-8/hr -->
+    <value>.002</value>  <!-- 9-64/hr -->
+    <value>.02</value>   <!-- 65-512/hr -->
+    <value>.2</value>    <!-- 513-4,096/hr -->
+    <value>2</value>    <!-- 4097-/hr -->
+  </array>
+
+  <!-- Cellular modem related values. Default is 0.-->
+  <item name="modem.controller.sleep">0</item>
+  <item name="modem.controller.idle">0</item>
+  <item name="modem.controller.rx">0</item>
+  <array name="modem.controller.tx"> <!-- Strength 0 to 4 -->
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+  </array>
+  <item name="modem.controller.voltage">0</item>
+
+  <!-- GPS related values. Default is 0.-->
+  <array name="gps.signalqualitybased"> <!-- Strength 0 to 1 -->
+    <value>0</value>
+    <value>0</value>
+  </array>
+  <item name="gps.voltage">0</item>
+
 </device>
