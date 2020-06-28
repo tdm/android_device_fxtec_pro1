@@ -1,3 +1,13 @@
 typeattribute tee data_between_core_and_vendor_violators;
 allow tee fingerprintd_data_file:dir { rw_dir_perms };
 allow tee fingerprintd_data_file:file { create_file_perms rw_file_perms };
+
+# Fingerprint
+allow btlfpserver tee_device:chr_file { read write open ioctl };
+allow btlfpserver firmware_file:dir { search };
+allow btlfpserver firmware_file:file { read open getattr };
+allow btlfpserver ion_device:chr_file { read ioctl open };
+allow hal_fingerprint_default tee_device:chr_file { read write open ioctl };
+allow hal_fingerprint_default firmware_file:dir { search };
+allow hal_fingerprint_default firmware_file:file { read open getattr };
+allow hal_fingerprint_default ion_device:chr_file { read ioctl open };

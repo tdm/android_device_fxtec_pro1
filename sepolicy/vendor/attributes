@@ -1,0 +1,3 @@
+attribute hal_btlfpserver;
+attribute hal_btlfpserver_client;
+attribute hal_btlfpserver_server;
