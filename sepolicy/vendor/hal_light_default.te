@@ -1,0 +1,2 @@
+allow hal_light_default input_device:chr_file read;
+allow hal_light_default sysfs:file { getattr open read write };

@@ -1,0 +1,76 @@
+type btlfpserver, domain;
+type btlfpserver_exec, exec_type, file_type, vendor_file_type;
+type btlfpserver_data_file, file_type, data_file_type;
+type btlfp_device, dev_type;
+
+#hwservice.te
+type hal_btlfp_hwservice, hwservice_manager_type;
+
+# Setup for domain transition
+init_daemon_domain(btlfpserver)
+
+# Allow to use HWBinder IPC
+hwbinder_use(btlfpserver);
+
+# Allow a set of permissions required for a domain to be a server which provides a HAL implementation over HWBinder.
+hal_server_domain(btlfpserver, hal_btlfpserver)
+
+# add/find permission rule to hwservicemanager
+add_hwservice(hal_btlfpserver_server, hal_btlfp_hwservice)
+
+# Allow to allocate hidl memory
+hal_client_domain(btlfpserver, hal_allocator)
+
+# Purpose : Allow to use kernel driver
+allow btlfpserver btlfp_device:chr_file { read write open ioctl };
+
+# Purpose : Allow property set
+allow btlfpserver init:unix_stream_socket connectto;
+allow btlfpserver property_socket:sock_file write;
+#allow btlfpserver system_prop:property_service set;
+#allow btlfpserver debug_prop:property_service set;
+
+# HwBinder IPC from clients into server, and callbacks
+binder_call(hal_btlfpserver_client, hal_btlfpserver_server)
+binder_call(hal_btlfpserver_server, hal_btlfpserver_client)
+
+binder_call(btlfpserver, hal_fingerprint_default)
+binder_call(hal_fingerprint_default, btlfpserver)
+binder_call(hal_fingerprint_default, hal_btlfp_hwservice)
+binder_call(hal_btlfp_hwservice, hal_fingerprint_default)
+
+binder_call(platform_app, hal_btlfp_hwservice)
+binder_call(hal_btlfp_hwservice,platform_app)
+binder_call(platform_app, btlfpserver)
+binder_call(btlfpserver, platform_app)
+
+
+# give permission for hal client
+allow hal_btlfpserver_client hal_btlfp_hwservice :hwservice_manager find;
+
+allow btlfpserver proc:file { read ioctl open };
+allow btlfpserver sysfs:file { read write open getattr };
+
+allow btlfpserver btlfpserver:netlink_socket { create bind read write };
+allow btlfpserver btlfpserver_data_file:file { open read write ioctl getattr setattr create unlink };
+allow btlfpserver btlfpserver_data_file:dir { create remove_name search read write open add_name };
+
+allow system_app hal_btlfp_hwservice:hwservice_manager find;
+
+allow system_app btlfpserver:binder { call transfer };
+allow btlfpserver system_app:binder { call transfer };
+
+# XXX: Some or all of the below may be for blestech fingerprint server
+
+# system_app.te
+binder_call(system_app, hal_fingerprint)
+allow system_app hal_fingerprint_hwservice:hwservice_manager find;
+
+binder_call(platform_app, hal_fingerprint)
+allow platform_app hal_fingerprint_hwservice:hwservice_manager find;
+
+#for hal_fingerprint_default
+allow hal_fingerprint_default hal_btlfp_hwservice:hwservice_manager find;
+allow hal_fingerprint_default btlfpserver_data_file:file { open read write ioctl getattr setattr create lock unlink };
+allow hal_fingerprint_default btlfpserver_data_file:dir { create read open search write add_name remove_name };
+allow hal_fingerprint_default hal_fingerprint_default:netlink_socket { create bind write read  };
