@@ -7,3 +7,5 @@ allow init hwservicemanager:binder call;
 allow init self:netlink_socket { bind create read write };
 allow init system_server:binder call;
 allow init tee_device:chr_file ioctl;
+
+allow init btlfpserver:binder call;
