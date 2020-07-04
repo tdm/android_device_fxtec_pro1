@@ -14,9 +14,12 @@
 /(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.hdcpkey@1\.0-service   u:object_r:hal_hdcpkey_default_exec:s0
 
 # Fingerprint
+/data/vendor/blfp(/.*)?                                         u:object_r:fingerprint_vendor_data_file:s0
+/dev/blfp                                                       u:object_r:fingerprint_device:s0
 /dev/fpc1020                                                    u:object_r:fingerprint_device:s0
 /dev/goodix_fp                                                  u:object_r:fingerprint_device:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service\.fxtec_msm8998 u:object_r:hal_fingerprint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/btlfpserver                      u:object_r:hal_fingerprint_default_exec:s0
 
 # Init
 /(vendor|system/vendor)/bin/init\.devstart\.sh                  u:object_r:init-devstart-sh_exec:s0
