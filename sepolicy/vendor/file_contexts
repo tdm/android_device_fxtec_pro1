@@ -1,5 +1,7 @@
 # Block devices
 /dev/block/platform/soc/1da4000.ufshc/by-name/config            u:object_r:frp_block_device:s0
+/dev/block/platform/soc/1da4000.ufshc/by-name/dtbo_[ab]         u:object_r:custom_ab_block_device:s0
+/dev/block/platform/soc/1da4000.ufshc/by-name/vbmeta_[ab]       u:object_r:custom_ab_block_device:s0
 
 # Bluetooth
 /sys/devices/bt_wcn3990/rfkill/rfkill0/state                    u:object_r:sysfs_bluetooth_writable:s0
