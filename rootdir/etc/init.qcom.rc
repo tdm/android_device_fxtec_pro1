@@ -431,7 +431,7 @@ service init-btlfp-sh /vendor/bin/init.btlfp.sh
 service init-devstart-sh /vendor/bin/init.devstart.sh
     class core
     user root
-    group root
+    group root radio
     oneshot
 
 service init-radio-sh /vendor/bin/init.radio.sh
