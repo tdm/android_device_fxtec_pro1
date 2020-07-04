@@ -14,3 +14,5 @@ genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/keyboard_state u:object_r:s
 genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/keymap u:object_r:sysfs_keyboard:s0
 genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/layout u:object_r:sysfs_keyboard:s0
 genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/poll_interval u:object_r:sysfs_keyboard:s0
+
+genfscon sysfs /goodix                 u:object_r:sysfs_touchpanel:s0
