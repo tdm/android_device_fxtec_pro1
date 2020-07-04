@@ -7,6 +7,8 @@ vendor.oem.device.imeicache1           u:object_r:radio_prop:s0
 camera.on                              u:object_r:camera_prop:s0
 persist.vendor.camera.debug.logfile    u:object_r:camera_prop:s0
 
+sdm.disable_hdr_lut_gen                u:object_r:vendor_display_prop:s0
+
 vendor.display.mode                    u:object_r:vendor_display_prop:s0
 
 vendor.powerhal.audio                  u:object_r:power_prop:s0
