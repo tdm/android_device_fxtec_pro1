@@ -7,3 +7,10 @@ genfscon debugfs /p2p0/power_stats     u:object_r:debugfs_power_stats:s0
 genfscon debugfs /wlan0/power_stats    u:object_r:debugfs_power_stats:s0
 genfscon debugfs /rmt_storage/rmts     u:object_r:qti_debugfs:s0
 genfscon debugfs /msm_core             u:object_r:qti_debugfs:s0
+
+genfscon sysfs /devices/key-leds/leds/keyboard-backlight/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/key-leds/leds/keyboard-backlight/max_brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/keyboard_state u:object_r:sysfs_keyboard:s0
+genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/keymap u:object_r:sysfs_keyboard:s0
+genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/layout u:object_r:sysfs_keyboard:s0
+genfscon sysfs /devices/soc/c17a000.i2c/i2c-6/6-0058/poll_interval u:object_r:sysfs_keyboard:s0
