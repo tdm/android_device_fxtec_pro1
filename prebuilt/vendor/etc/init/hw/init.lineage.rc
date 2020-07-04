@@ -1,10 +1,3 @@
-on post-fs-data
-    # Generate wifi mac
-    start vendor.wifi-mac-generator
-
-    # Generate bt mac
-    start vendor.bt-mac-generator
-
 on boot
     # Wifi driver state control
     chown wifi wifi /sys/kernel/boot_wlan/boot_wlan
