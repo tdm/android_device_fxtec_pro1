@@ -42,7 +42,6 @@
 /sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:qpnp,fg/power_supply/bms(/.*)?               u:object_r:sysfs_battery_supply:s0
 
 # Ril
-/data/vendor/oemnvitems(/.*)?                                   u:object_r:vendor_radio_data_file:s0
 /(vendor|system/vendor)/bin/init\.radio\.sh                     u:object_r:init-radio-sh_exec:s0
 
 # Sysfs
