@@ -710,6 +710,17 @@ vendor/lib/hw/sound_trigger.primary.msm8998.so
 vendor/lib64/hw/sound_trigger.primary.msm8998.so
 vendor/lib/libsmwrapper.so
 
+# Listen dependencies
+vendor/etc/graphite_ipc_platform_info.xml
+vendor/lib64/libgcs.so
+vendor/lib64/libgcs-calwrapper.so
+vendor/lib64/libgcs-ipc.so
+vendor/lib64/libgcs-osal.so
+vendor/lib/libgcs.so
+vendor/lib/libgcs-calwrapper.so
+vendor/lib/libgcs-ipc.so
+vendor/lib/libgcs-osal.so
+
 # Media
 lib/libmmosal.so
 lib/vendor.qti.hardware.vpp@1.1.so
@@ -1154,14 +1165,3 @@ vendor/lib64/libhdcp2p2prov.so
 vendor/lib64/libhdcpsrm.so
 vendor/lib64/libmmosal_proprietary.so
 vendor/lib64/libwfdhdcpcp.so
-
-# Misc
-vendor/etc/graphite_ipc_platform_info.xml
-vendor/lib64/libgcs.so
-vendor/lib64/libgcs-calwrapper.so
-vendor/lib64/libgcs-ipc.so
-vendor/lib64/libgcs-osal.so
-vendor/lib/libgcs.so
-vendor/lib/libgcs-calwrapper.so
-vendor/lib/libgcs-ipc.so
-vendor/lib/libgcs-osal.so
