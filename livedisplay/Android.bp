@@ -14,8 +14,8 @@
 // limitations under the License.
 
 cc_binary {
-    name: "lineage.livedisplay@2.0-service.idealte_msm8998",
-    init_rc: ["lineage.livedisplay@2.0-service.idealte_msm8998.rc"],
+    name: "vendor.lineage.livedisplay@2.0-service.fxtec_msm8998",
+    init_rc: ["vendor.lineage.livedisplay@2.0-service.fxtec_msm8998.rc"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     srcs: [
@@ -31,4 +31,5 @@ cc_binary {
         "libutils",
         "vendor.lineage.livedisplay@2.0",
     ],
+    proprietary: true,
 }
