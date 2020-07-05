@@ -11,7 +11,3 @@ allow cameraserver hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find
 binder_call(cameraserver, hal_configstore_default)
 
 binder_call(cameraserver, mediacodec)
-
-typeattribute hal_nfc_default data_between_core_and_vendor_violators;
-allow hal_nfc_default nfc_data_file:dir search;
-allow hal_nfc_default nfc_data_file:file r_file_perms;
