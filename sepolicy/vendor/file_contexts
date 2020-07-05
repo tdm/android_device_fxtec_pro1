@@ -61,7 +61,5 @@
 /sys/kernel/boot_wlan(/.*)?                                     u:object_r:sysfs_wifi:s0
 /sys/module/fpc1020_tee/parameters/ignor_home_for_ESD           u:object_r:sysfs_fpc_key:s0
 
-/sys/project_info(/.*)?                                         u:object_r:sysfs_data:s0
-
 # USB
 /vendor/bin/hw/android\.hardware\.usb@1\.1-service\.pro1        u:object_r:hal_usb_impl_exec:s0
