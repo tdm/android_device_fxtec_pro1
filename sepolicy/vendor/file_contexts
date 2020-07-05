@@ -23,15 +23,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service.fxtec_msm8998    u:object_r:hal_light_default_exec:s0
 
 # LiveDisplay
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service.fxtec_msm8998    u:object_r:hal_livedisplay_fxtec_msm8998_exec:s0
-/sys/devices/virtual/graphics/fb0/adaption_mode                 u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/adobe_rgb                     u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/dci_p3                        u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/hbm                           u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/night_mode                    u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/fxtec_mode                  u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/panel_serial_number           u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/srgb                          u:object_r:sysfs_livedisplay_tuneable:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service.fxtec_msm8998 u:object_r:hal_livedisplay_default_exec:s0
 
 # Keylayout
 /vendor/usr/idc(/.*?)                                           u:object_r:vendor_keylayout_file:s0
