@@ -7,10 +7,6 @@
 /sys/devices/bt_wcn3990/rfkill/rfkill0/state                    u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/bt_wcn3990/extldo                                  u:object_r:sysfs_bluetooth_writable:s0
 
-# Dash
-/dev/dash                                                       u:object_r:dash_device:s0
-/vendor/xbin/dashd                                              u:object_r:dashd_exec:s0
-
 # DRM
 /(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.drmkey@1\.0-service    u:object_r:hal_drm_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.hdcpkey@1\.0-service   u:object_r:hal_hdcpkey_default_exec:s0
