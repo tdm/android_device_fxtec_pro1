@@ -1,1 +1,0 @@
-add_hwservice(hal_drm_default, hal_drmkey_hwservice)
