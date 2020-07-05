@@ -344,7 +344,7 @@ PRODUCT_PACKAGES += \
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    lineage.livedisplay@2.0-service.idealte_msm8998
+    vendor.lineage.livedisplay@2.0-service.fxtec_msm8998
 
 # Media
 PRODUCT_COPY_FILES += \
