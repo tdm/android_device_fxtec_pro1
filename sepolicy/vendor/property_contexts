@@ -8,6 +8,7 @@ vendor.oem.device.imeicache1           u:object_r:radio_prop:s0
 
 camera.on                              u:object_r:camera_prop:s0
 persist.vendor.camera.debug.logfile    u:object_r:camera_prop:s0
+ro.camera.                             u:object_r:camera_prop:s0
 
 ro.build.software.version              u:object_r:qcom_ims_prop:s0
 
