@@ -1,0 +1,3 @@
+# Device settings
+allow system_app sysfs_hwkbd:file { rw_file_perms };
+allow system_app sysfs_touchscreen:file { rw_file_perms };
