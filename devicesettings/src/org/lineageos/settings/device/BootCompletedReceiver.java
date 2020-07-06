@@ -31,8 +31,11 @@ import java.io.FileWriter;
 import org.lineageos.settings.device.R;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
+    private static final String TAG = "FxTecBootCompletedReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.i(TAG, "Received boot complete intent");
         setKeyboardLayout(context);
         setKeyboardKeymap(context);
         setKeyboardPollInterval(context);
@@ -104,7 +107,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             reader.read(buffer);
             result = new String(buffer);
         }
-        catch (Exception e) { /* Ignore */ }
+        catch (Exception e) {
+            Log.e(TAG, "Failed to read " + filename + ": " + e.getMessage());
+        }
         return result;
     }
 
@@ -116,7 +121,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             writer.flush();
             result = true;
         }
-        catch (Exception e) { /* Ignore */ }
+        catch (Exception e) {
+            Log.e(TAG, "Failed to write " + filename + ": " + e.getMessage());
+        }
         return result;
     }
 }

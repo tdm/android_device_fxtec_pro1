@@ -16,7 +16,11 @@ get_prop(system_server, vendor_camera_prop)
 allow system_server proc_touchpanel:dir { r_dir_perms };
 allow system_server proc_touchpanel:file { rw_file_perms };
 allow system_server sysfs_fpc_key:file { rw_file_perms };
+
+# Input and keyboard configuration
+allow system_server vendor_inputcfg_file:file { r_file_perms };
 allow system_server vendor_keylayout_file:file { r_file_perms };
+allow system_server vendor_keycharmap_file:file { r_file_perms };
 
 # Thermal
 allow system_server thermal_service:service_manager { find };
