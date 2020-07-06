@@ -1,0 +1,5 @@
+# Keyboard
+/sys/devices/soc/c17a000.i2c/i2c-6/6-0058/[^/]+                 u:object_r:sysfs_hwkbd:s0
+
+# Touch screen
+/sys/goodix/[^/]+                                               u:object_r:sysfs_touchscreen:s0

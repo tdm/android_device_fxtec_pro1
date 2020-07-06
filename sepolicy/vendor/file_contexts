@@ -23,6 +23,7 @@
 
 # Fingerprint
 /(system\/vendor|vendor)/bin/hw/btlfpserver   	                u:object_r:btlfpserver_exec:s0
+/(system\/vendor|vendor)/bin/init.btlfp.sh                      u:object_r:qti_init_shell_exec:s0
 /data/vendor/blfp/*                                             u:object_r:btlfpserver_data_file:s0
 /data/vendor/blfp/[0-9]+(/.*)?                                  u:object_r:btlfpserver_data_file:s0
 /dev/blfp                                                       u:object_r:btlfp_device:s0
@@ -44,10 +45,14 @@
 /sys/devices/virtual/graphics/fb0/panel_serial_number           u:object_r:sysfs_livedisplay_tuneable:s0
 /sys/devices/virtual/graphics/fb0/srgb                          u:object_r:sysfs_livedisplay_tuneable:s0
 
-# Keylayout
-/vendor/usr/keylayout/fpc1020.kl                                u:object_r:vendor_keylayout_file:s0
-/vendor/usr/keylayout/synaptics.kl                              u:object_r:vendor_keylayout_file:s0
-/vendor/usr/keylayout/synaptics_s3320.kl                        u:object_r:vendor_keylayout_file:s0
+# Keyboard
+/data/system/keyboard/[^/]+                                     u:object_r:device_keyboard_file:s0
+/persist/data/keyboard/[^/]+                                    u:object_r:persist_keyboard_file:s0
+
+# Input and keyboard configuration
+/vendor/usr/idc/[^/]+\.idc                                      u:object_r:vendor_inputcfg_file:s0
+/vendor/usr/keylayout/[^/]+\.kl                                 u:object_r:vendor_keylayout_file:s0
+/vendor/usr/keychars/[^/]+\.kcm                                 u:object_r:vendor_keycharmap_file:s0
 
 # Param
 /(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.param@1\.0-service    u:object_r:hal_param_default_exec:s0
