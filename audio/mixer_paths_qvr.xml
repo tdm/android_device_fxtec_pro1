@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.    -->
+<!-- Copyright (c) 2015-2016, 2018, The Linux Foundation. All rights reserved.    -->
 <!--                                                                        -->
 <!-- Redistribution and use in source and binary forms, with or without     -->
 <!-- modification, are permitted provided that the following conditions are -->
@@ -307,8 +307,6 @@
     <!-- audio record compress end-->
 
     <!-- split a2dp -->
-    <ctl name="BT SampleRate" value="KHZ_8" />
-    <ctl name="AFE Input Channels" value="Zero" />
     <ctl name="SLIM7_RX ADM Channels" value="Zero" />
     <!-- split a2dp end-->
 
@@ -1702,6 +1700,7 @@
         <ctl name="Voip_Tx Mixer SLIM_0_TX_Voip" value="1" />
     </path>
 
+
     <path name="compress-voip-call bt-sco">
         <ctl name="SLIM_7_RX_Voice Mixer Voip" value="1" />
         <ctl name="Voip_Tx Mixer SLIM_7_TX_Voip" value="1" />
@@ -2490,14 +2489,28 @@
         <path name="unprocessed-handset-mic" />
     </path>
 
+    <path name="unprocessed-stereo-mic">
+        <path name="voice-rec-dmic-ef" />
+    </path>
+
+    <path name="unprocessed-three-mic">
+        <path name="three-mic" />
+    </path>
+
+    <path name="unprocessed-quad-mic">
+        <path name="quad-mic" />
+    </path>
+
+    <path name="unprocessed-headset-mic">
+        <path name="headset-mic" />
+    </path>
+
     <!-- Added for ADSP testfwk -->
     <path name="ADSP testfwk">
         <ctl name="SLIMBUS_DL_HL Switch" value="1" />
     </path>
 
     <path name="bt-a2dp">
-        <ctl name="BT SampleRate" value="KHZ_48" />
-        <ctl name="AFE Input Channels" value="Two" />
         <ctl name="SLIM7_RX ADM Channels" value="Two" />
     </path>
 

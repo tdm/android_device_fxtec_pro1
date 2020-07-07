@@ -1,27 +1,70 @@
-# Audio
-vendor/etc/firmware/tfa98xx.cnt:vendor/firmware/tfa98xx.cnt
+# Audio ACDB
+vendor/etc/acdbdata/QRD/QRD_Hdmi_cal.acdb
+vendor/etc/acdbdata/QRD/QRD_Handset_cal.acdb
+vendor/etc/acdbdata/QRD/QRD_Bluetooth_cal.acdb
+vendor/etc/acdbdata/QRD/QRD_workspaceFile.qwsp
+vendor/etc/acdbdata/QRD/QRD_Speaker_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_Handset_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_General_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_Hdmi_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_Bluetooth_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_Headset_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_Global_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_Speaker_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_Codec_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-qvr-tavil-snd-card/QRD_QVR_WCD9340_workspaceFile.qwsp
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_workspaceFile.qwsp
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_Bluetooth_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_Speaker_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_Handset_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_Codec_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_General_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_Headset_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_Global_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-skuk-tavil-snd-card/QRD_SKUK_WCD9340_Hdmi_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_Bluetooth_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_Hdmi_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_Headset_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_workspaceFile.qwsp
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_Global_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_Codec_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_General_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_Speaker_cal.acdb
+vendor/etc/acdbdata/QRD/msm8998-tavil-snd-card/QRD_WCD9340_Handset_cal.acdb
+vendor/etc/acdbdata/QRD/QRD_Headset_cal.acdb
+vendor/etc/acdbdata/QRD/QRD_Global_cal.acdb
+vendor/etc/acdbdata/QRD/QRD_General_cal.acdb
+vendor/etc/acdbdata/MTP/MTP_General_cal.acdb
+vendor/etc/acdbdata/MTP/MTP_Global_cal.acdb
+vendor/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
+vendor/etc/acdbdata/MTP/MTP_Handset_cal.acdb
+vendor/etc/acdbdata/MTP/MTP_Speaker_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_Codec_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_General_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_Global_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_Speaker_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_Hdmi_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_workspaceFile.qwsp
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_Handset_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_Headset_cal.acdb
+vendor/etc/acdbdata/MTP/msm8998-tavil-snd-card/MTP_WCD9340_Bluetooth_cal.acdb
+vendor/etc/acdbdata/MTP/MTP_workspaceFile.qwsp
+vendor/etc/acdbdata/MTP/MTP_Headset_cal.acdb
+vendor/etc/acdbdata/MTP/MTP_Hdmi_cal.acdb
 
-# Alipay
--priv-app/IFAAService/IFAAService.apk
-lib/libteeclientjni.so
-lib/vendor.oneplus.hardware.ifaa@2.0.so
-lib64/libteeclientjni.so
-lib64/libteeclientjniv2.so
-lib64/vendor.oneplus.hardware.ifaa@2.0.so
-vendor/bin/hw/vendor.oneplus.hardware.ifaa@2.0-service
-vendor/etc/init/vendor.oneplus.hardware.ifaa@2.0-service.rc
-vendor/lib64/vendor.oneplus.hardware.ifaa@2.0.so
+# Camera
+vendor/lib/hw/camera.msm8998.so
 
-# DASH
-vendor/xbin/dashd
-
-# DRM
-vendor/etc/init/vendor.oneplus.hardware.drmkey@1.0-service.rc
-vendor/etc/init/vendor.oneplus.hardware.hdcpkey@1.0-service.rc
-vendor/bin/hw/vendor.oneplus.hardware.drmkey@1.0-service
-vendor/bin/hw/vendor.oneplus.hardware.hdcpkey@1.0-service
-vendor/lib64/vendor.oneplus.hardware.drmkey@1.0.so
-vendor/lib64/vendor.oneplus.hardware.hdcpkey@1.0.so
+# Fingerprint firmware
+vendor/firmware/btlap64.b00
+vendor/firmware/btlap64.b01
+vendor/firmware/btlap64.b02
+vendor/firmware/btlap64.b03
+vendor/firmware/btlap64.b04
+vendor/firmware/btlap64.b05
+vendor/firmware/btlap64.b06
+vendor/firmware/btlap64.b07
+vendor/firmware/btlap64.mdt
 
 # Graphics firmware
 vendor/firmware/a530_gpmu.fw2
@@ -55,18 +98,6 @@ vendor/firmware/ipa_fws.mdt
 
 # NFC firmware
 vendor/lib/libpn553_fw.so
-
-# Radio - factory
--framework/vendor.oneplus.hardware.param-V1.0-java.jar
-lib/vendor.oneplus.hardware.param@1.0.so
-lib64/vendor.oneplus.hardware.param@1.0.so
-vendor/bin/hw/vendor.oneplus.hardware.param@1.0-service
-vendor/etc/init/vendor.oneplus.hardware.param@1.0-service.rc
-vendor/lib/vendor.oneplus.hardware.param@1.0.so
-vendor/lib64/vendor.oneplus.hardware.param@1.0.so
-
-# Radio - MBN
-etc/firmware/mbn_ota/mbn_ota.txt:vendor/firmware/mbn_ota/mbn_ota.txt
 
 # Sensors
 vendor/etc/sensors/hals.conf

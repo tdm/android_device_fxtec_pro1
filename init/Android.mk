@@ -25,9 +25,9 @@ LOCAL_C_INCLUDES := \
 
 LOCAL_STATIC_LIBRARIES := libbase
 
-LOCAL_SRC_FILES := init_oneplus_msm8998.cpp
+LOCAL_SRC_FILES := init_fxtec_msm8998.cpp
 
-LOCAL_MODULE := libinit_oneplus_msm8998
+LOCAL_MODULE := libinit_fxtec_msm8998
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_STATIC_LIBRARY)

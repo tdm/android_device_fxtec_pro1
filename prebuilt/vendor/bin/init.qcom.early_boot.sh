@@ -50,7 +50,7 @@ if [ -f /sys/class/drm/card0-DSI-1/modes ]; then
     echo "detect" > /sys/class/drm/card0-DSI-1/status
     mode_file=/sys/class/drm/card0-DSI-1/modes
     while read line; do
-        fb_width=${line%x*};
+        fb_width=${line%%x*};
         break;
     done < $mode_file
 elif [ -f /sys/class/graphics/fb0/virtual_size ]; then
@@ -116,6 +116,30 @@ case "$target" in
             "Dragon")
                 setprop ro.sound.alsa "WM8903"
                 ;;
+        esac
+        ;;
+
+    "sm6150")
+        case "$soc_hwplatform" in
+            "ADP")
+                setprop vendor.display.lcd_density 160
+                ;;
+        esac
+        case "$soc_hwid" in
+            365|366)
+                sku_ver=`cat /sys/devices/platform/soc/aa00000.qcom,vidc1/sku_version` 2> /dev/null
+                if [ $sku_ver -eq 1 ]; then
+                    setprop vendor.media.sdmmagpie.version 1
+                fi
+                ;;
+            355)
+                setprop vendor.media.sm6150.version 1
+                setprop vendor.chre.enabled 0
+                ;;
+            369|377|384)
+                setprop vendor.chre.enabled 0
+                ;;
+            *)
         esac
         ;;
 
@@ -263,15 +287,7 @@ case "$target" in
     "msm8998" | "apq8098_latv")
         case "$soc_hwplatform" in
             *)
-		#modify by Leo Jia 560 to 420
-		#setprop ro.sf.lcd_density 560
-                setprop vendor.display.lcd_density 420
-                if [ ! -e /dev/kgsl-3d0 ]; then
-                    setprop persist.sys.force_sw_gles 1
-                    setprop vendor.display.idle_time 0
-                else
-                    setprop persist.sys.force_sw_gles 0
-                fi
+                setprop vendor.display.lcd_density 560
                 ;;
         esac
         ;;
@@ -351,6 +367,26 @@ product=`getprop ro.build.product`
 case "$product" in
         "msmnile_au")
          setprop vendor.display.lcd_density 160
+         echo 902400000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/min_freq
+         echo 1612800000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/max_freq
+         echo 902400000 > /sys/class/devfreq/soc:qcom,cpu4-cpu-l3-lat/min_freq
+         echo 1612800000 > /sys/class/devfreq/soc:qcom,cpu4-cpu-l3-lat/max_freq
+         ;;
+        *)
+        ;;
+esac
+
+case "$product" in
+        "sm6150_au")
+         setprop vendor.display.lcd_density 160
+         ;;
+        *)
+        ;;
+esac
+
+case "$product" in
+        "sdmshrike_au")
+         setprop vendor.display.lcd_density 160
          ;;
         *)
         ;;
@@ -367,54 +403,10 @@ function set_perms() {
     chmod $3 $1
 }
 
-function setHDMIPermission() {
-   file=/sys/class/graphics/fb$1
-   dev_file=/dev/graphics/fb$1
-   dev_gfx_hdmi=/devices/virtual/switch/hdmi
-
-   set_perms $file/hpd system.graphics 0664
-   set_perms $file/res_info system.graphics 0664
-   set_perms $file/vendor_name system.graphics 0664
-   set_perms $file/product_description system.graphics 0664
-   set_perms $file/video_mode system.graphics 0664
-   set_perms $file/format_3d system.graphics 0664
-   set_perms $file/s3d_mode system.graphics 0664
-   set_perms $file/dynamic_fps system.graphics 0664
-   set_perms $file/msm_fb_dfps_mode system.graphics 0664
-   set_perms $file/hdr_stream system.graphics 0664
-   set_perms $file/cec/enable system.graphics 0664
-   set_perms $file/cec/logical_addr system.graphics 0664
-   set_perms $file/cec/rd_msg system.graphics 0664
-   set_perms $file/pa system.graphics 0664
-   set_perms $file/cec/wr_msg system.graphics 0600
-   set_perms $file/hdcp/tp system.graphics 0664
-   set_perms $file/hdcp2p2/min_level_change system.graphics 0660
-   set_perms $file/hdmi_audio_cb audioserver.audio 0600
-   ln -s $dev_file $dev_gfx_hdmi
-}
-
 # check for the type of driver FB or DRM
 fb_driver=/sys/class/graphics/fb0
 if [ -e "$fb_driver" ]
 then
-    # check for HDMI connection
-    for fb_cnt in 0 1 2 3
-    do
-        file=/sys/class/graphics/fb$fb_cnt/msm_fb_panel_info
-        if [ -f "$file" ]
-        then
-          cat $file | while read line; do
-            case "$line" in
-                *"is_pluggable"*)
-                 case "$line" in
-                      *"1"*)
-                      setHDMIPermission $fb_cnt
-                 esac
-            esac
-          done
-        fi
-    done
-
     # check for mdp caps
     file=/sys/class/graphics/fb0/mdp/caps
     if [ -f "$file" ]
@@ -428,29 +420,6 @@ then
                 esac
         done
     fi
-
-    file=/sys/class/graphics/fb0
-    if [ -d "$file" ]
-    then
-            set_perms $file/idle_time system.graphics 0664
-            set_perms $file/dynamic_fps system.graphics 0664
-            set_perms $file/dyn_pu system.graphics 0664
-            set_perms $file/modes system.graphics 0664
-            set_perms $file/mode system.graphics 0664
-            set_perms $file/msm_cmd_autorefresh_en system.graphics 0664
-    fi
-
-    # set lineptr permissions for all displays
-    for fb_cnt in 0 1 2 3
-    do
-        file=/sys/class/graphics/fb$fb_cnt
-        if [ -f "$file/lineptr_value" ]; then
-            set_perms $file/lineptr_value system.graphics 0664
-        fi
-        if [ -f "$file/msm_fb_persist_mode" ]; then
-            set_perms $file/msm_fb_persist_mode system.graphics 0664
-        fi
-    done
 else
     set_perms /sys/devices/virtual/hdcp/msm_hdcp/min_level_change system.graphics 0660
 fi

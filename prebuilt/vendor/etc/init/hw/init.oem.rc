@@ -1,4 +1,4 @@
-﻿on post-fs
+on post-fs
     chown system system /proc/ship_mode
     chown system system /dev/param
     chown system system /dev/block/mmcblk0p21
@@ -87,9 +87,6 @@ on post-fs-data
     mkdir /mnt/vendor/persist/hdcp  775 media mediadrm
 
     mkdir /data/vendor/misc/qsee/face/  0770 system system
-
-    #insmod /vendor/lib/modules/opchain.ko
-    #insmod /vendor/lib/modules-aging/opchain.ko
 
 #changhua add for fingerint
 on boot
@@ -201,7 +198,6 @@ on boot
     # Set TCP MTU probing to automatic
     write /proc/sys/net/ipv4/tcp_mtu_probing 1
 
-    #joseph.huang@oneplus.com, 2018/06/01, add for oiface feature
     mkdir /data/vendor/oiface 0700 system system
 
 on property:sys.boot_completed=1 && property:persist.sys.usb.config=none && property:ro.boot.type=auto
@@ -254,7 +250,6 @@ on charger
 on property:sys.op_bootmode=charger && property:sys.usb.config=none
     setprop sys.usb.config mass_storage
 
-#niejianan@oneplus.framework , 2015/04/25, add for mmi charging test
 on property:sys.fastcharger=true
     write /sys/class/power_supply/battery/charging_enabled 1
 
@@ -269,11 +264,6 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     disabled
     oneshot
 
-#lifei@oneplus.media, 2016/02/14,  add service for CTS and engineer app
-#service oem_audio_device /system/bin/chcon u:object_r:oem_audio_device:s0 /dev/snd
-#    class late_start
-#    oneshot
-
 #davidliu@bsp 2017/04/14 Add OTG switch
 on property:persist.sys.oem.otg_support=true
     write /sys/class/power_supply/usb/otg_switch 1
@@ -282,16 +272,5 @@ on property:persist.sys.oem.otg_support=false
 
 on property:sys.boot_completed=1
     write /sys/module/smb_lib/parameters/sys_boot_complete 1
-    #joseph.huang@oneplus.com, 20180424, add for OnePlusPerfManager
     chown system system /sys/module/lpm_levels/parameters/cluster_prediction
     chmod 0666 /sys/module/lpm_levels/parameters/cluster_prediction
-
-# liuyan 2016/7/22, add ifaadaemon
-#service ifaadaemon /vendor/bin/ifaadaemon
-#    class late_start
-#    user system
-#    group system
-
-#@bsp 2018/09/05 FAT-4556 fix the audio heaset pop issue when shutdown(trigger faster)
-on property:sys.shutdown.requested=*
-    write /sys/module/oneplus_fastchg/parameters/mcu_reset 1

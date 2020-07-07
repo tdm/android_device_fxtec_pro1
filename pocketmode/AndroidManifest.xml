@@ -12,7 +12,7 @@
         android:targetSdkVersion="21"/>
 
     <application
-        android:label="OneplusPocketMode"
+        android:label="FxTecPocketMode"
         android:persistent="true">
 
         <receiver android:name="org.lineageos.pocketmode.BootCompletedReceiver">
@@ -23,7 +23,7 @@
         </receiver>
 
         <service android:name="org.lineageos.pocketmode.PocketModeService"
-                 android:permission="OneplusPocketModeService">
+                 android:permission="FxTecPocketModeService">
         </service>
 
         <activity android:name="PocketMode"
