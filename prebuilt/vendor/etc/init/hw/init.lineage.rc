@@ -23,19 +23,3 @@ on boot
 
     chown system system /proc/tri-state-key/keyCode_bottom
     chmod 0660 /proc/tri-state-key/keyCode_bottom
-
-service vendor.wifi-mac-generator /vendor/bin/wifi-mac-generator
-    class main
-    user wifi
-    group wifi
-    oneshot
-    disabled
-    seclabel u:r:wifi_mac_generator:s0
-
-service vendor.bt-mac-generator /vendor/bin/bt-mac-generator
-    class main
-    user bluetooth
-    group bluetooth
-    oneshot
-    disabled
-    seclabel u:r:bt_mac_generator:s0
