@@ -480,6 +480,9 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-service \
     libsensorndkbridge
 
+# Shipping API level (for CTS backward compatibility)
+include $(SRC_TARGET_DIR)/product/product_launched_with_p.mk
+
 # Tetheroffload
 PRODUCT_PACKAGES += \
     ipacm \

@@ -288,8 +288,6 @@ BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 BOARD_USES_QC_TIME_SERVICES := true
 
 # Treble
-include $(SRC_TARGET_DIR)/product/product_launched_with_p.mk
-
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
