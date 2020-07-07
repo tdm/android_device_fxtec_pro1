@@ -26,8 +26,8 @@ public class IFAAManagerFactory extends IFAAManagerV2 {
 
     public static IFAAManagerFactory mIFAAManagerFactory = null;
 
-    static final String IFAA_SERVICE_PACKAGE = "com.oneplus.ifaaservice";
-    static final String IFAA_SERVICE_CLASS = "com.oneplus.ifaaservice.IFAAService";
+    static final String IFAA_SERVICE_PACKAGE = "com.fxtec.ifaaservice";
+    static final String IFAA_SERVICE_CLASS = "com.fxtec.ifaaservice.IFAAService";
 
     static final ComponentName IFAA_SERVICE_COMPONENT = new ComponentName(
             IFAA_SERVICE_PACKAGE,
@@ -61,9 +61,7 @@ public class IFAAManagerFactory extends IFAAManagerV2 {
     }
 
     public String getDeviceModel() {
-        //return Build.MODEL;
-        Slog.e(TAG, "device model");
-        return "ONEPLUS-A5000";
+        return Build.MODEL;
     }
 
     public int getVersion() {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "lineage.touch@1.0-service.oneplus_msm8998"
+#define LOG_TAG "lineage.touch@1.0-service.fxtec_msm8998"
 
 #include <android-base/logging.h>
 #include <binder/ProcessState.h>

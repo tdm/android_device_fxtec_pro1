@@ -66,8 +66,7 @@ Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
              std::ofstream&& red_pause_lo, std::ofstream&& green_pause_lo, std::ofstream&& blue_pause_lo,
              std::ofstream&& red_pause_hi, std::ofstream&& green_pause_hi, std::ofstream&& blue_pause_hi,
              std::ofstream&& red_ramp_step_ms, std::ofstream&& green_ramp_step_ms, std::ofstream&& blue_ramp_step_ms,
-             std::ofstream&& red_blink, std::ofstream&& green_blink, std::ofstream&& blue_blink,
-             std::ofstream&& rgb_blink)
+             std::ofstream&& red_blink, std::ofstream&& green_blink, std::ofstream&& blue_blink)
     : mLcdBacklight(std::move(lcd_backlight)),
       mButtonBacklight(std::move(button_backlight)),
       mRedLed(std::move(red_led)),
@@ -90,8 +89,7 @@ Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
       mBlueRampStepMs(std::move(blue_ramp_step_ms)),
       mRedBlink(std::move(red_blink)),
       mGreenBlink(std::move(green_blink)),
-      mBlueBlink(std::move(blue_blink)),
-      mRgbBlink(std::move(rgb_blink)) {
+      mBlueBlink(std::move(blue_blink)) {
     auto attnFn(std::bind(&Light::setAttentionLight, this, std::placeholders::_1));
     auto backlightFn(std::bind(&Light::setLcdBacklight, this, std::placeholders::_1));
     auto batteryFn(std::bind(&Light::setBatteryLight, this, std::placeholders::_1));
@@ -241,9 +239,6 @@ void Light::setSpeakerLightLocked(const LightState& state) {
     blue = colorRGB & 0xff;
     blink = onMs > 0 && offMs > 0;
 
-    // Disable all blinking to start
-    mRgbBlink << 0 << std::endl;
-
     if (blink) {
         stepDuration = RAMP_STEP_DURATION;
         pauseHi = onMs - (stepDuration * RAMP_SIZE * 2);
@@ -273,9 +268,6 @@ void Light::setSpeakerLightLocked(const LightState& state) {
         mBluePauseLo << offMs << std::endl;
         mBluePauseHi << pauseHi << std::endl;
         mBlueRampStepMs << stepDuration << std::endl;
-
-        // Start the party
-        mRgbBlink << 1 << std::endl;
     } else {
         if (red == 0 && green == 0 && blue == 0) {
             mRedBlink << 0 << std::endl;

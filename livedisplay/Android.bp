@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2019 The LineageOS Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,30 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-cc_defaults {
-    name: "livedisplay_oneplus_msm8998",
+cc_binary {
+    name: "lineage.livedisplay@2.0-service.idealte_msm8998",
+    init_rc: ["lineage.livedisplay@2.0-service.idealte_msm8998.rc"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     srcs: [
         "DisplayModes.cpp",
-        "PictureAdjustment.cpp",
+        "SunlightEnhancement.cpp",
         "service.cpp",
     ],
     shared_libs: [
         "libbase",
         "libbinder",
-        "libcutils",
-        "libdl",
         "libhidlbase",
         "libhidltransport",
         "libutils",
         "vendor.lineage.livedisplay@2.0",
     ],
-}
-
-cc_binary {
-    name: "vendor.lineage.livedisplay@2.0-service.oneplus_msm8998",
-    init_rc: ["vendor.lineage.livedisplay@2.0-service.oneplus_msm8998.rc"],
-    defaults: ["livedisplay_oneplus_msm8998"],
-    proprietary: true,
 }

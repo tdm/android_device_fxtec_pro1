@@ -27,7 +27,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter cheeseburger dumpling,$(TARGET_DEVICE)),)
+ifeq (pro1,$(TARGET_DEVICE))
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
@@ -105,7 +105,7 @@ $(WCNSS_MAC_SYMLINK): $(LOCAL_INSTALLED_MODULE)
 	@echo "WCNSS MAC bin link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /mnt/vendor/persist/$(notdir $@) $@
+	$(hide) ln -sf /persist/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(WCNSS_INI_SYMLINK) $(WCNSS_MAC_SYMLINK)
 

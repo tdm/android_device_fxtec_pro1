@@ -36,8 +36,6 @@ class DisplayModes : public IDisplayModes {
   public:
     DisplayModes();
 
-    static bool isSupported();
-
     // Methods from ::vendor::lineage::livedisplay::V2_0::IDisplayModes follow.
     Return<void> getDisplayModes(getDisplayModes_cb resultCb) override;
     Return<void> getCurrentDisplayMode(getCurrentDisplayMode_cb resultCb) override;
@@ -47,7 +45,7 @@ class DisplayModes : public IDisplayModes {
   private:
     struct ModeInfo {
         const char* name;
-        const char* node;
+        const char* value;
     };
     static const std::map<int32_t, ModeInfo> kModeMap;
     int32_t mDefaultModeId;
