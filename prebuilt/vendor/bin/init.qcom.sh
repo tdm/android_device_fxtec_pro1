@@ -26,18 +26,6 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-oemdump=`getprop persist.vendor.oem.dump`
-buildtype=`getprop ro.vendor.build.release_type`
-if [ "$oemdump" == "" ]; then
-    case "$buildtype" in
-        "release" | "cta")
-           setprop persist.vendor.oem.dump 0
-           ;;
-        *)
-           setprop persist.vendor.oem.dump 1
-           ;;
-    esac
-fi
 
 target=`getprop ro.board.platform`
 low_ram=`getprop ro.config.low_ram`
@@ -96,7 +84,7 @@ start_msm_irqbalance_8939()
 {
 	if [ -f /vendor/bin/msm_irqbalance ]; then
 		case "$platformid" in
-		    "239" | "293" | "294" | "295" | "304" | "313" |"353")
+		    "239" | "293" | "294" | "295" | "304" | "338" | "313" |"353" | "354")
 			start vendor.msm_irqbalance;;
 		    "349" | "350" )
 			start vendor.msm_irqbal_lb;;
@@ -111,7 +99,7 @@ start_msm_irqbalance_msmnile()
          fi
 }
 
-start_msm_irqbalance()
+start_msm_irqbalance660()
 {
 	if [ -f /vendor/bin/msm_irqbalance ]; then
 		case "$platformid" in
@@ -120,6 +108,13 @@ start_msm_irqbalance()
 		    "318" | "327" | "385")
 			start vendor.msm_irqbl_sdm630;;
 		esac
+	fi
+}
+
+start_msm_irqbalance()
+{
+	if [ -f /vendor/bin/msm_irqbalance ]; then
+		start vendor.msm_irqbalance
 	fi
 }
 
@@ -202,7 +197,7 @@ case "$target" in
         fi
 
         case "$soc_id" in
-             "317" | "324" | "325" | "326" | "318" | "327" )
+             "317" | "324" | "325" | "326" | "318" | "327" | "385" )
                   case "$hw_platform" in
                        "Surf")
                                     setprop qemu.hw.mainkeys 0
@@ -219,7 +214,7 @@ case "$target" in
                   esac
                   ;;
        esac
-        start_msm_irqbalance
+        start_msm_irqbalance660
         ;;
     "apq8084")
         platformvalue=`cat /sys/devices/soc0/hw_platform`
@@ -272,7 +267,7 @@ case "$target" in
                   ;;
         esac
         ;;
-    "msm8994" | "msm8992" | "msm8998" | "apq8098_latv" | "sdm845" | "sdm710" | "qcs605" | "talos")
+    "msm8994" | "msm8992" | "msm8998" | "apq8098_latv" | "sdm845" | "sdm710" | "qcs605" | "sm6150" | "trinket")
         start_msm_irqbalance
         ;;
     "msm8996")
@@ -381,7 +376,7 @@ case "$target" in
              hw_platform=`cat /sys/devices/system/soc/soc0/hw_platform`
         fi
         case "$soc_id" in
-             "336" | "337" | "347" | "360" )
+             "336" | "337" | "347" | "360" | "393" )
                   case "$hw_platform" in
                        "Surf")
                                     setprop qemu.hw.mainkeys 0
@@ -420,11 +415,6 @@ if [ ! -f /vendor/firmware_mnt/verinfo/ver_info.txt -o "$prev_version_info" != "
     cp --preserve=m -d /vendor/firmware_mnt/verinfo/ver_info.txt /data/vendor/modem_config/
     cp --preserve=m -d /vendor/firmware_mnt/image/modem_pr/mbn_ota.txt /data/vendor/modem_config/
     # the group must be root, otherwise this script could not add "W" for group recursively
-
-#ifdef VENDOR_EDIT 20180601
-# zhouhanxin add for mbn_ota.txt , 201711277
-    cp -r /system/etc/firmware/mbn_ota/mbn_ota.txt /data/vendor/modem_config/mbn_ota.txt
-#endif VENDOR_END 20180601
     chown -hR radio.root /data/vendor/modem_config/*
 fi
 chmod g-w /data/vendor/modem_config
@@ -436,8 +426,7 @@ buildvariant=`getprop ro.build.type`
 case "$buildvariant" in
     "userdebug" | "eng")
         #set default loglevel to KERN_INFO
-	#Modify by david@bsp, 20161101 change console loglevel to 7
-        echo "7 6 1 7" > /proc/sys/kernel/printk
+        echo "6 6 1 7" > /proc/sys/kernel/printk
         ;;
     *)
         #set default loglevel to KERN_WARNING

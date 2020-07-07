@@ -1,3 +1,5 @@
+import /init.recovery.twrp.rc
+
 import /init.recovery.qcom.usb.rc
 
 on fs
@@ -32,6 +34,6 @@ on property:sys.usb.ffs.ready=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
     write /config/usb_gadget/g1/idVendor 0x18d1
     write /config/usb_gadget/g1/idProduct 0xd001
-    write /config/usb_gadget/g1/strings/0x409/product "OnePlus"
+    write /config/usb_gadget/g1/strings/0x409/product "FxTec"
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}

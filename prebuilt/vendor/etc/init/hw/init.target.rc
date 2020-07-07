@@ -27,10 +27,7 @@
 #
 #
 
-import /vendor/etc/init/hw/init.target.performance.rc
-
 on early-init
-    symlink /data/vendor/tombstones /tombstones
     write /proc/sys/kernel/sched_boost 1
 
 on init
@@ -63,13 +60,16 @@ on post-fs
     write /dev/ipa 1
 
 on post-fs-data
-    mkdir /data/vendor/tombstones 0771 system system
+    mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
-    mkdir /data/vendor/hbtp 0750 system system
-    #mkdir /data/misc/qvr 0770 system system
+    #mkdir /data/vendor/hbtp 0750 system system
+    mkdir /data/misc/qvr 0770 system system
+    # Create directory for dolby audio
+    mkdir /data/vendor/misc/audio 0770 audio audio
+    mkdir /data/vendor/misc/audio/dolby 0770 audio audio
 
 # For cpusets initialize for Silver Only first and then Silver + Gold
 # Silver Only configuration cannot work with 0-7
@@ -114,16 +114,12 @@ on boot
    chown system system /persist/speccfg/submask
    chown system system /persist/speccfg/partition
 
-
-#install video modules
-   insmod /system/lib/modules/msm-vidc-vmem.ko
-   insmod /system/lib/modules/msm-vidc.ko
-   insmod /system/lib/modules/msm-vidc-dyn-gov.ko
-   insmod /system/lib/modules/msm-vidc-table-gov.ko
-
-#Load WLAN driver
-on property:wlan.driver.status=ok
-   insmod /vendor/lib/modules/qca_cld3_wlan.ko
+   chmod 0777 /sys/class/leds/led:torch_0/brightness
+   chmod 0777 /sys/class/leds/led:switch_0/brightness
+   chmod 0777 /sys/class/leds/led:torch_1/brightness
+   chown system system /sys/class/leds/led:torch_0/brightness
+   chown system system /sys/class/leds/led:torch_1/brightness
+   chown system system /sys/class/leds/led:switch_0/brightness
 
 #USB controller configuration
     setprop vendor.usb.rndis.func.name "gsi"
@@ -149,11 +145,11 @@ on property:init.svc.vendor.per_mgr=running
     start vendor.per_proxy
 
 on property:sys.shutdown.requested=*
-    stop cnss-daemon
     stop vendor.per_proxy
+    stop vendor.ims_rtp_daemon
 
 on charger
-#    start vendor.hvdcp_opti
+    start vendor.hvdcp_opti
     setprop sys.usb.configfs 1
 
 #on post-fs
@@ -223,11 +219,11 @@ service adsprpcd /system/vendor/bin/adsprpcd
    user media
    group media
 
-service hbtp /system/vendor/bin/hbtp_daemon
-    class main
-    user system
-    group system
-    disabled
+#service hbtp /system/vendor/bin/hbtp_daemon
+#    class main
+#    user system
+#    group system
+#    disabled
 
 service audiod /system/vendor/bin/audiod
    class late_start
@@ -297,14 +293,14 @@ service audiod /system/vendor/bin/audiod
 #
 #
 ## imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
-service vendor.imsqmidaemon /vendor/bin/imsqmidaemon
+service vendor.imsqmidaemon /system/vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
     group radio log diag
 
 # imsdatadaemon starts with root and UID will be downgraded to SYSTEM.
-service vendor.imsdatadaemon /vendor/bin/imsdatadaemon
+service vendor.imsdatadaemon /system/vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
@@ -379,12 +375,12 @@ service cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
    group system wifi inet sdcard_rw media_rw diag
    oneshot
 
-service vendor.ims_rtp_daemon /vendor/bin/ims_rtp_daemon
+service vendor.ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
    class main
    user system
    group radio diag inet log
 
-service vendor.imsrcsservice /vendor/bin/imsrcsd
+service vendor.imsrcsservice /system/vendor/bin/imsrcsd
    class main
    user system
    group radio diag inet log wakelock
@@ -436,32 +432,25 @@ on property:init.svc.zygote=restarting
 #    user system
 #    group system
 
-#service energy-awareness /system/vendor/bin/energy-awareness
-#    class main
-#    user root
-#    group system
-#    oneshot
+service energy-awareness /system/vendor/bin/energy-awareness
+    class main
+    user root
+    group system
+    oneshot
 
-#service mdtpd /system/vendor/bin/mdtpd
-#    class late_start
-#    user root
-#    group system radio drmrpc
+service mdtpd /system/vendor/bin/mdtpd
+    class late_start
+    user root
+    group system radio drmrpc
 
-#service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
-#    class main
-#    user root
-#    group system wakelock
-#    disabled
+service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
+    class main
+    user root
+    group system wakelock
 
-service dashd /vendor/xbin/dashd
-     class core
-     critical
-     seclabel u:r:dashd:s0
-     group root system
-
-#service qvrd /system/bin/qvrservice
-#    class late_start
-#    user system
-#    group system camera graphics
-#    socket qvrservice stream 0666 system system
-#    capabilities SYS_NICE
+service qvrd /system/bin/qvrservice
+    class late_start
+    user system
+    group system camera graphics
+    socket qvrservice stream 0666 system system
+    capabilities SYS_NICE

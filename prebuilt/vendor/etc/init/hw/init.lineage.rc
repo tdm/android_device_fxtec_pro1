@@ -1,15 +1,3 @@
-on post-fs-data
-    # Generate wifi mac
-    start vendor.wifi-mac-generator
-
-    # Generate bt mac
-    start vendor.bt-mac-generator
-
-    # For oneplus camera hal
-    mkdir /data/misc/camera 775 system system
-    write /data/misc/camera/client_package_name "com.oneplus.camera"
-    chmod 0444 /data/misc/camera/client_package_name
-
 on boot
     # Wifi driver state control
     chown wifi wifi /sys/kernel/boot_wlan/boot_wlan
@@ -35,19 +23,3 @@ on boot
 
     chown system system /proc/tri-state-key/keyCode_bottom
     chmod 0660 /proc/tri-state-key/keyCode_bottom
-
-service vendor.wifi-mac-generator /vendor/bin/wifi-mac-generator
-    class main
-    user wifi
-    group wifi
-    oneshot
-    disabled
-    seclabel u:r:wifi_mac_generator:s0
-
-service vendor.bt-mac-generator /vendor/bin/bt-mac-generator
-    class main
-    user bluetooth
-    group bluetooth
-    oneshot
-    disabled
-    seclabel u:r:bt_mac_generator:s0

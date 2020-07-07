@@ -36,11 +36,11 @@ limitations under the License.
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.h263" type="video/3gpp" update="true">
             <Limit name="measured-frame-rate-176x144" range="120-120" />
-            <Limit name="measured-frame-rate-352x288" range="80-80" />
+            <Limit name="measured-frame-rate-352x288" range="255-300" />
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.mpeg4" type="video/mp4v-es" update="true">
             <Limit name="measured-frame-rate-176x144" range="120-120" />
-            <Limit name="measured-frame-rate-352x288" range="100-110" />
+            <Limit name="measured-frame-rate-352x288" range="280-350" />
             <Limit name="measured-frame-rate-640x480" range="80-100" />
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.vp8" type="video/x-vnd.on2.vp8" update="true">
@@ -59,7 +59,7 @@ limitations under the License.
             <Limit name="measured-frame-rate-176x144" range="200-200" />
         </MediaCodec>
         <MediaCodec name="OMX.google.mpeg4.encoder" type="video/mp4v-es" update="true">
-            <Limit name="measured-frame-rate-176x144" range="930-930" />
+            <Limit name="measured-frame-rate-176x144" range="140-430" />
         </MediaCodec>
         <MediaCodec name="OMX.google.vp8.encoder" type="video/x-vnd.on2.vp8" update="true">
             <Limit name="measured-frame-rate-320x180" range="68-70" />
@@ -120,7 +120,7 @@ limitations under the License.
             <Limit name="measured-frame-rate-352x288" range="172-172" />
         </MediaCodec>
         <MediaCodec name="OMX.google.hevc.decoder" type="video/hevc" update="true">
-            <Limit name="measured-frame-rate-352x288" range="450-450" />
+            <Limit name="measured-frame-rate-352x288" range="750-850" />
             <Limit name="measured-frame-rate-640x360" range="200-200" />
             <Limit name="measured-frame-rate-720x480" range="180-180" />
             <Limit name="measured-frame-rate-1280x720" range="80-80" />

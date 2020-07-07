@@ -162,7 +162,7 @@ err_ret:
     return ret;
 }
 
-/* oneplus.verify_modem("MODEM_VERSION") */
+/* fxtec.verify_modem("MODEM_VERSION") */
 Value * VerifyModemFn(const char *name, State *state, const std::vector<std::unique_ptr<Expr>>& argv) {
     char current_modem_version[MODEM_VER_BUF_LEN];
     size_t i;
@@ -199,7 +199,7 @@ Value * VerifyModemFn(const char *name, State *state, const std::vector<std::uni
     return StringValue(strdup(ret ? "1" : "0"));
 }
 
-/* oneplus.file_exists("PATH") */
+/* fxtec.file_exists("PATH") */
 Value * FileExistsFn(const char *name, State *state, const std::vector<std::unique_ptr<Expr>>& argv) {
     struct stat buffer;
     std::vector<std::string> file_path;
@@ -211,7 +211,7 @@ Value * FileExistsFn(const char *name, State *state, const std::vector<std::uniq
     return StringValue((stat(file_path[0].c_str(), &buffer) == 0) ? "1" : "0");
 }
 
-void Register_librecovery_updater_oneplus() {
-    RegisterFunction("oneplus.verify_modem", VerifyModemFn);
-    RegisterFunction("oneplus.file_exists", FileExistsFn);
+void Register_librecovery_updater_fxtec() {
+    RegisterFunction("fxtec.verify_modem", VerifyModemFn);
+    RegisterFunction("fxtec.file_exists", FileExistsFn);
 }

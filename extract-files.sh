@@ -18,6 +18,11 @@
 
 set -e
 
+export DEVICE=pro1
+export VENDOR=fxtec
+
+export DEVICE_BRINGUP_YEAR=2019
+
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
@@ -30,9 +35,6 @@ if [ ! -f "$HELPER" ]; then
     exit 1
 fi
 . "$HELPER"
-
-# Default to NOT sanitizing the vendor folder before extraction
-CLEAN_VENDOR=false
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -53,49 +55,27 @@ if [ -z "$SRC" ]; then
 fi
 
 # Initialize the helper
-setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true "$CLEAN_VENDOR"
+setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" true "$CLEAN_VENDOR"
 
 extract "$MY_DIR"/proprietary-files-qc.txt "$SRC" "$SECTION"
 extract "$MY_DIR"/proprietary-files-qc-perf.txt "$SRC" "$SECTION"
 extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
 
-if [ -s "$MY_DIR"/../$DEVICE/proprietary-files.txt ]; then
-    # Reinitialize the helper for device
-    setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
-
-    extract "$MY_DIR"/../$DEVICE/proprietary-files.txt "$SRC" "$SECTION"
-fi
-
-COMMON_BLOB_ROOT="$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE_COMMON"/proprietary
-
-#
-# Fix camera etc path
-#
-function fix_camera_etc_path () {
-    sed -i \
-        's/\/system\/etc\//\/vendor\/etc\//g' \
-        "$COMMON_BLOB_ROOT"/"$1"
-}
-
-fix_camera_etc_path vendor/lib/libmmcamera_imglib.so
-fix_camera_etc_path vendor/lib/libmmcamera_interface.so
-fix_camera_etc_path vendor/lib/libopcamera_native_modules.so
-
-#
-# Fix framework path
-#
-function fix_framework_path () {
-    sed -i \
-        's/\/system\/framework\//\/vendor\/framework\//g' \
-        "$COMMON_BLOB_ROOT"/"$1"
-}
-
-fix_framework_path vendor/etc/permissions/com.fingerprints.extension.xml
+BLOB_ROOT="$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE"/proprietary
 
 #
 # Correct android.hidl.manager@1.0-java jar name
 #
 sed -i "s|name=\"android.hidl.manager-V1.0-java|name=\"android.hidl.manager@1.0-java|g" \
-    "$COMMON_BLOB_ROOT"/vendor/etc/permissions/qti_libpermissions.xml
+    "$BLOB_ROOT"/vendor/etc/permissions/qti_libpermissions.xml
+
+# qseecomd linkage for recovery
+RECOVERY_QSEECOMD="$BLOB_ROOT/recovery/root/sbin/qseecomd"
+if [ -f "$RECOVERY_QSEECOMD" ]; then
+    sed 's@/system/bin/linker64@/sbin/linker64\x0\x0\x0\x0\x0\x0@' \
+        < "$RECOVERY_QSEECOMD" \
+        > "$RECOVERY_QSEECOMD.tmp"
+    mv "$RECOVERY_QSEECOMD.tmp" "$RECOVERY_QSEECOMD"
+fi
 
 "$MY_DIR"/setup-makefiles.sh

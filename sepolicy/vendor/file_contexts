@@ -1,5 +1,5 @@
 # Alipay
-/(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.ifaa@2\.0-service    u:object_r:hal_ifaa_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.ifaa@2\.0-service    u:object_r:hal_ifaa_default_exec:s0
 
 # Block devices
 # We have a couple of non-standard NV partitions
@@ -11,15 +11,14 @@
 # Bluetooth
 /sys/devices/bt_wcn3990/rfkill/rfkill0/state                    u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/bt_wcn3990/extldo                                  u:object_r:sysfs_bluetooth_writable:s0
-/(vendor|system/vendor)/bin/bt-mac-generator                    u:object_r:bt_mac_generator_exec:s0
 
 # Dash
 /dev/dash                                                       u:object_r:dash_device:s0
 /vendor/xbin/dashd                                              u:object_r:dashd_exec:s0
 
 # DRM
-/(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.drmkey@1\.0-service    u:object_r:hal_drm_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.hdcpkey@1\.0-service   u:object_r:hal_hdcpkey_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.drmkey@1\.0-service    u:object_r:hal_drm_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.hdcpkey@1\.0-service   u:object_r:hal_hdcpkey_default_exec:s0
 
 # Fingerprint
 /dev/fpc1020                                                    u:object_r:fingerprint_device:s0
@@ -27,16 +26,16 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service-custom u:object_r:hal_fingerprint_default_exec:s0
 
 # Lights
-/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service.oneplus_msm8998    u:object_r:hal_light_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service.fxtec_msm8998    u:object_r:hal_light_default_exec:s0
 
 # LiveDisplay
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service.oneplus_msm8998    u:object_r:hal_livedisplay_oneplus_msm8998_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service.fxtec_msm8998    u:object_r:hal_livedisplay_fxtec_msm8998_exec:s0
 /sys/devices/virtual/graphics/fb0/adaption_mode                 u:object_r:sysfs_livedisplay_tuneable:s0
 /sys/devices/virtual/graphics/fb0/adobe_rgb                     u:object_r:sysfs_livedisplay_tuneable:s0
 /sys/devices/virtual/graphics/fb0/dci_p3                        u:object_r:sysfs_livedisplay_tuneable:s0
 /sys/devices/virtual/graphics/fb0/hbm                           u:object_r:sysfs_livedisplay_tuneable:s0
 /sys/devices/virtual/graphics/fb0/night_mode                    u:object_r:sysfs_livedisplay_tuneable:s0
-/sys/devices/virtual/graphics/fb0/oneplus_mode                  u:object_r:sysfs_livedisplay_tuneable:s0
+/sys/devices/virtual/graphics/fb0/fxtec_mode                  u:object_r:sysfs_livedisplay_tuneable:s0
 /sys/devices/virtual/graphics/fb0/panel_serial_number           u:object_r:sysfs_livedisplay_tuneable:s0
 /sys/devices/virtual/graphics/fb0/srgb                          u:object_r:sysfs_livedisplay_tuneable:s0
 
@@ -46,7 +45,7 @@
 /vendor/usr/keylayout/synaptics_s3320.kl                        u:object_r:vendor_keylayout_file:s0
 
 # Param
-/(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.param@1\.0-service    u:object_r:hal_param_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.fxtec\.hardware\.param@1\.0-service    u:object_r:hal_param_default_exec:s0
 
 # Power supply
 /sys/devices/soc/.*ssusb/power_supply/usb(/.*)?                 u:object_r:sysfs_usb_supply:s0
@@ -79,7 +78,4 @@
 /sys/project_info(/.*)?                                         u:object_r:sysfs_data:s0
 
 # Touch
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.oneplus_msm8998 u:object_r:hal_touch_oneplus_msm8998_exec:s0
-
-# Wifi
-/(vendor|system/vendor)/bin/wifi-mac-generator                  u:object_r:wifi_mac_generator_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.fxtec_msm8998 u:object_r:hal_touch_fxtec_msm8998_exec:s0

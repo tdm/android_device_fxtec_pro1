@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.light@2.0-service.oneplus_msm8998"
+#define LOG_TAG "android.hardware.light@2.0-service.fxtec_msm8998"
 
 #include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
@@ -56,7 +56,6 @@ const static std::string kBlueRampStepMsPath = "/sys/class/leds/blue/ramp_step_m
 const static std::string kRedBlinkPath = "/sys/class/leds/red/blink";
 const static std::string kGreenBlinkPath = "/sys/class/leds/green/blink";
 const static std::string kBlueBlinkPath = "/sys/class/leds/blue/blink";
-const static std::string kRgbBlinkPath = "/sys/class/leds/rgb/rgb_blink";
 
 int main() {
     uint32_t lcdMaxBrightness = 255;
@@ -249,13 +248,6 @@ int main() {
         return -errno;
     }
 
-    std::ofstream rgbBlink(kRgbBlinkPath);
-    if (!rgbBlink) {
-        LOG(ERROR) << "Failed to open " << kRgbBlinkPath << ", error=" << errno
-                   << " (" << strerror(errno) << ")";
-        return -errno;
-    }
-
     android::sp<ILight> service = new Light(
             {std::move(lcdBacklight), lcdMaxBrightness}, std::move(buttonBacklight),
             std::move(redLed), std::move(greenLed), std::move(blueLed),
@@ -264,8 +256,7 @@ int main() {
             std::move(redPauseLo), std::move(greenPauseLo), std::move(bluePauseLo),
             std::move(redPauseHi), std::move(greenPauseHi), std::move(bluePauseHi),
             std::move(redRampStepMs), std::move(greenRampStepMs), std::move(blueRampStepMs),
-            std::move(redBlink), std::move(greenBlink), std::move(blueBlink),
-            std::move(rgbBlink));
+            std::move(redBlink), std::move(greenBlink), std::move(blueBlink));
 
     configureRpcThreadpool(1, true);
 
