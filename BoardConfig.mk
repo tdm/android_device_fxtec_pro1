@@ -246,7 +246,7 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TARGET_USERIMAGES_USE_EXT4 := true
 
-ifneq (,$(wildcard bootable/recovery/twrp.cpp))
+ifeq ($(WITH_TWRP),true)
 # TARGET_RECOVERY_FSTAB?
 TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)/twrp
 TW_INCLUDE_CRYPTO := true
