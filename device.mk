@@ -22,7 +22,7 @@
 # definition file).
 #
 
-$(call inherit-product, vendor/idealte/pro1/pro1-vendor.mk)
+$(call inherit-product, vendor/fxtec/pro1/pro1-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay

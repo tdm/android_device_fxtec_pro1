@@ -18,7 +18,7 @@
 set -e
 
 export DEVICE=pro1
-export VENDOR=idealte
+export VENDOR=fxtec
 
 export DEVICE_BRINGUP_YEAR=2019
 

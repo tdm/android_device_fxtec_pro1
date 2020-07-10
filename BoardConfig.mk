@@ -26,7 +26,7 @@ DEVICE_PATH := device/fxtec/pro1
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
-BOARD_VENDOR := idealte
+BOARD_VENDOR := fxtec
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8998
@@ -311,4 +311,4 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth/include
 TARGET_RECOVERY_UI_MARGIN_STATUSBAR := 48
 
 # inherit from the proprietary version
--include vendor/idealte/pro1/BoardConfigVendor.mk
+-include vendor/fxtec/pro1/BoardConfigVendor.mk
