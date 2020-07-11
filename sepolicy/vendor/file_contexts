@@ -52,3 +52,7 @@
 
 # USB
 /vendor/bin/hw/android\.hardware\.usb@1\.1-service\.pro1        u:object_r:hal_usb_impl_exec:s0
+
+# WiFi
+/vendor/bin/macplugin                                           u:object_r:macplugin_exec:s0
+

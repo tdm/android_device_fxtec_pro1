@@ -483,6 +483,7 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
+    macplugin \
     android.hardware.wifi@1.0-service \
     hostapd \
     hostapd_cli \
