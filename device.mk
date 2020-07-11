@@ -484,6 +484,7 @@ PRODUCT_PACKAGES += \
     libqsap_sdk \
     libQWiFiSoftApCfg \
     libwifi-hal-qcom \
+    macplugin \
     wpa_supplicant \
     wpa_supplicant.conf
 
