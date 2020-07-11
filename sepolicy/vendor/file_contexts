@@ -88,3 +88,6 @@
 
 # Touch
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.fxtec_msm8998 u:object_r:hal_touch_fxtec_msm8998_exec:s0
+
+# WiFi
+/vendor/bin/macplugin                                           u:object_r:macplugin_exec:s0
