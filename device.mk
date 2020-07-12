@@ -28,6 +28,10 @@ $(call inherit-product, vendor/fxtec/pro1/pro1-vendor.mk)
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS += framework-res
 
+# Properties
+-include $(LOCAL_PATH)/system_prop.mk
+-include $(LOCAL_PATH)/vendor_prop.mk
+
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
@@ -445,9 +449,6 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.1-service.pro1
-
-# Vendor properties
--include $(LOCAL_PATH)/vendor_prop.mk
 
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
