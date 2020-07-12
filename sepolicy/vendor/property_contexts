@@ -11,6 +11,8 @@ ro.build.software.version              u:object_r:qcom_ims_prop:s0
 
 sdm.disable_hdr_lut_gen                u:object_r:vendor_display_prop:s0
 
+vendor.bluetooth.soc                   u:object_r:fm_prop:s0
+
 vendor.powerhal.audio                  u:object_r:power_prop:s0
 vendor.powerhal.init                   u:object_r:power_prop:s0
 vendor.powerhal.rendering              u:object_r:power_prop:s0
