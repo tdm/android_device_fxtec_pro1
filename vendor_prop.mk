@@ -22,9 +22,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=2 \
     vendor.audio_hal.period_size=192 \
-    audio.offload.video=true \
-    audio.deep_buffer.media=true \
-    audio.offload.min.duration.secs=30
 
 # Audio new
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -86,22 +83,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=560 \
     ro.opengles.version=196610 \
-    debug.sf.enable_hwc_vds=1 \
-    debug.sf.latch_unsignaled=1 \
-    persist.debug.wfd.enable=1 \
-    persist.hwc.enable_vds=1 \
     vendor.gralloc.enable_fb_ubwc=1 \
     vendor.gralloc.disable_wb_ubwc=1 \
     vendor.display.disable_partial_split=1 \
     vendor.display.disable_rotator_downscale=1 \
     vendor.display.disable_skip_validate=1 \
     vendor.display.enable_default_color_mode=1 \
-    vendor.display.perf_hint_window=50 \
-    debug.hwui.use_buffer_age=false \
-    ro.com.google.ime.kb_pad_port_l=10 \
-    ro.com.google.ime.kb_pad_port_r=10 \
-    ro.com.google.ime.key_border=true \
-    ro.com.google.ime.bs_theme=true
+    vendor.display.perf_hint_window=50
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -114,7 +102,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
-    ril.subscription.types=NV,RUIM \
     ro.telephony.default_network=22,20 \
     telephony.lteOnCdmaDevice=1 \
     keyguard.no_require_sim=true \
