@@ -23,15 +23,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=2 \
     vendor.audio_hal.period_size=192 \
     audio.offload.video=true \
-    audio.offload.pcm.16bit.enable=true \
-    audio.offload.pcm.24bit.enable=true \
     audio.deep_buffer.media=true \
-    audio.cts.media=false \
-    audio.offload.min.duration.secs=30 \
-    persist.dirac.acs.controller=qem \
-    ro.dirac.acs.storeSettings=1 \
-    ro.dirac.ignore_error=1 \
-    tunnel.audio.encode=true
+    audio.offload.min.duration.secs=30
 
 # Audio new
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -69,7 +62,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.bt.a2dp_offload_cap=false \
     vendor.bluetooth.soc=cherokee \
     vendor.qcom.bluetooth.soc=cherokee
 
@@ -94,16 +86,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=560 \
     ro.opengles.version=196610 \
-    ro.sf.hwc_set_default_colormode=true \
-    debug.sf.hw=1 \
     debug.sf.enable_hwc_vds=1 \
     debug.sf.latch_unsignaled=1 \
-    dev.pm.dyn_samplingrate=1 \
-    persist.demo.hdmirotationlock=false \
     persist.debug.wfd.enable=1 \
     persist.hwc.enable_vds=1 \
-    persist.sys.force_sw_gles=0 \
-    persist.sys.wfd.virtual=0 \
     vendor.gralloc.enable_fb_ubwc=1 \
     vendor.gralloc.disable_wb_ubwc=1 \
     vendor.display.disable_partial_split=1 \
@@ -119,17 +105,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
-    media.stagefright.enable-player=true \
-    media.stagefright.enable-http=true \
-    media.stagefright.enable-aac=true \
-    media.stagefright.enable-qcp=true \
-    media.stagefright.enable-scan=true \
-    mmp.enable.3g2=true \
-    media.aac_51_output_enabled=true \
-    mm.enable.smoothstreaming=true \
-    persist.mm.enable.prefetch=true \
-    vidc.enc.dcvs.extra-buff-count=2 \
-    persist.media.treble_omx=true
+    vidc.enc.dcvs.extra-buff-count=2
 
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -137,7 +113,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    DEVICE_PROVISIONED=1 \
     vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM \
     ro.telephony.default_network=22,20 \
