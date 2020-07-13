@@ -24,8 +24,6 @@
 
 DEVICE_PATH := device/fxtec/pro1
 
-TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
-
 BOARD_VENDOR := fxtec
 
 # Bootloader
