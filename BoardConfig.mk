@@ -24,8 +24,6 @@
 
 DEVICE_PATH := device/fxtec/pro1
 
-BOARD_VENDOR := fxtec
-
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8998
 TARGET_NO_BOOTLOADER := true
