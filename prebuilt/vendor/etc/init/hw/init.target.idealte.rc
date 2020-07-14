@@ -11,6 +11,21 @@ on boot
    chown system system /sys/class/leds/green/blink
    chown system system /sys/class/leds/blue/blink
 
+    # Keyboard
+    mkdir /persist/data/keyboard 0771 system system
+    chown system system /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/layout
+    chmod 0660 /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/layout
+    chown system system /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/keymap
+    chmod 0660 /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/keymap
+    chown system system /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/poll_interval
+    chmod 0660 /sys/devices/soc/c17a000.i2c/i2c-6/6-0058/poll_interval
+
+    # Touchscreen
+    chown system system /sys/goodix/margin_x
+    chmod 0660 /sys/goodix/margin_x
+    chown system system /sys/goodix/margin_y
+    chmod 0660 /sys/goodix/margin_y
+
 service macplugin /vendor/bin/macplugin
     class main
     user root
