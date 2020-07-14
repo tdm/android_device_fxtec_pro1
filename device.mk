@@ -177,6 +177,7 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/init.btlfp.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.btlfp.sh \
     $(LOCAL_PATH)/rootdir/etc/init.radio.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.radio.sh
 
 # Device settings

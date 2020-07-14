@@ -1303,7 +1303,7 @@ service macplugin /vendor/bin/macplugin
     group root
     oneshot
 
-service init-btlfp /vendor/bin/init.btlfp.sh
+service init-btlfp-sh /vendor/bin/init.btlfp.sh
     class late_start
     user system
     oneshot
