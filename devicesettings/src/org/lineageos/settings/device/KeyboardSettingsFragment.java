@@ -32,7 +32,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-import org.lineageos.internal.util.FileUtils;
+import com.android.internal.util.aicp.FileUtils;
 
 import org.lineageos.settings.device.R;
 

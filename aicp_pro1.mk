@@ -21,10 +21,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from pro1 device
 $(call inherit-product, device/fxtec/pro1/device.mk)
 
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common aicp stuff.
+$(call inherit-product, vendor/aicp/config/common_full_phone.mk)
 
-PRODUCT_NAME := lineage_pro1
+PRODUCT_NAME := aicp_pro1
 PRODUCT_DEVICE := pro1
 PRODUCT_MANUFACTURER := Fxtec
 PRODUCT_BRAND := Fxtec

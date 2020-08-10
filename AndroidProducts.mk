@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_pro1.mk
+    $(LOCAL_DIR)/aicp_pro1.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_pro1-eng \
-    lineage_pro1-user \
-    lineage_pro1-userdebug
+    aicp_pro1-eng \
+    aicp_pro1-user \
+    aicp_pro1-userdebug
